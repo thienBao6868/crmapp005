@@ -9,30 +9,53 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
 
 import config.MySQLConfig;
 import emtity.User;
 
 
-@WebServlet(name="loginController", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet{
+
+@WebServlet(name = "loginController", urlPatterns = { "/login" })
+public class LoginController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
+		// Retrieve the cookies associated with the request
+		Cookie[] cookies = req.getCookies();
+
+		// Check if cookies exist
+		if (cookies != null) {
+			// Iterate over the cookies array
+			for (Cookie cookie : cookies) {
+				String name = cookie.getName();
+				String value = cookie.getValue();
+
+				if (name.equals("email")) {
+					req.setAttribute("email", value);
+				}
+				if (name.equals("password")) {
+					req.setAttribute("password", value);
+				}
+
+			}
+		} else {
+			System.out.println("No cookies found.");
+		}
+
 		req.getRequestDispatcher("login.jsp").forward(req, resp);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
+		String  remember = req.getParameter("remember");
 
 		// chuẩn bị câu truy vấn kiểm tra xem email và password có tồn tại trong CSDL
 		// hay không
@@ -64,6 +87,7 @@ public class LoginController extends HttpServlet{
 				user.setId(resultSet.getInt("id"));
 				user.setEmail(resultSet.getString("email"));
 				user.setFirstName(resultSet.getString("first_name"));
+				user.setLastName( resultSet.getString("last_name"));
 				user.setFullname(resultSet.getString("fullname"));
 				user.setPhone(resultSet.getString("phone"));
 				user.setIdRole(resultSet.getInt("id_role"));
@@ -73,9 +97,23 @@ public class LoginController extends HttpServlet{
 			}
 
 			if (listUser.size() > 0) {
+
+				if (remember != null) {
+					// Create a new cookie
+					Cookie cookie = new Cookie("email", email);
+					Cookie cookie1 = new Cookie("password", password);
+
+					// Set the maximum age of the cookie (in seconds), here it's set to 24 hours
+					cookie.setMaxAge(24 * 60 * 60);
+					cookie1.setMaxAge(24 * 60 * 60); // 1 day
+					// Add the cookie to the response
+					resp.addCookie(cookie);
+					resp.addCookie(cookie1);
+				}
+
 				resp.sendRedirect(req.getContextPath() + "/dashboard");
 			} else {
-				
+
 				req.setAttribute("ms", "Đăng nhập thất bại, vui lòng thử lại");
 				req.getRequestDispatcher("login.jsp").forward(req, resp);
 			}

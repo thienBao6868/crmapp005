@@ -21,6 +21,8 @@
 
 <%
 request.getAttribute("ms");
+request.getAttribute("email");
+request.getAttribute("password");
 %>
 
 
@@ -34,11 +36,14 @@ request.getAttribute("ms");
 					<form action="login" method="post">
 						<div class="form-group">
 							<label>Email</label> <input type="email" class="form-control"
-								name="email">
+								name="email" value="${email}">
 						</div>
 						<div class="form-group">
 							<label>Mật khẩu</label> <input type="password"
-								class="form-control" name="password">
+								class="form-control" name="password" value="${password}">
+						</div>
+						<div class="form-group">
+							<input type="checkbox" name="remember"> Lưu mật khẩu
 						</div>
 						<button type="submit" class="btn btn-primary">Đăng nhập</button>
 						<c:if test="${ms != null}">
@@ -50,6 +55,7 @@ request.getAttribute("ms");
 				</div>
 			</div>
 		</div>
+
 
 	</div>
 

@@ -5,6 +5,14 @@
 	public class User {
 
 		private int id;
+		private String email;
+		private String password;
+		private String phone;
+		private String fullname;
+		private String lastName;
+		private String firstName;
+		private int idRole;
+		
 		public int getId() {
 			return id;
 		}
@@ -53,13 +61,7 @@
 		public void setIdRole(int idRole) {
 			this.idRole = idRole;
 		}
-		private String email;
-		private String password;
-		private String phone;
-		private String fullname;
-		private String lastName;
-		private String firstName;
-		private int idRole;
+		
 
 	}
 
