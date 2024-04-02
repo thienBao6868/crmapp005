@@ -27,7 +27,9 @@ public class LoginController extends HttpServlet {
 
 		// Retrieve the cookies associated with the request
 		Cookie[] cookies = req.getCookies();
-
+		
+		
+		
 		// Check if cookies exist
 		if (cookies != null) {
 			// Iterate over the cookies array
@@ -97,7 +99,11 @@ public class LoginController extends HttpServlet {
 			}
 
 			if (listUser.size() > 0) {
-
+				
+					int role =  listUser.get(0).getIdRole();
+					Cookie cookieRole = new Cookie("role",String.valueOf(role));
+					cookieRole.setMaxAge(24*60*60);
+					resp.addCookie(cookieRole);
 				if (remember != null) {
 					// Create a new cookie
 					Cookie cookie = new Cookie("email", email);
