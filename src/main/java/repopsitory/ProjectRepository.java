@@ -2,8 +2,12 @@ package repopsitory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import config.MySQLConfig;
+import emtity.Project;
 
 public class ProjectRepository {
 
@@ -30,4 +34,38 @@ public class ProjectRepository {
 		return result;
 	}
 
+	public List<Project> GetAllProject (){
+		
+		 List<Project> listProject = new ArrayList<Project>();
+		
+		String query = "SELECT  * FROM  project ";
+		Connection connection = MySQLConfig.getConnection();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet result =  statement.executeQuery();
+			
+			
+			
+			while(result.next()) {
+				Project project = new Project();
+				project.setId(result.getInt("id"));
+				project.setName(result.getString("name"));
+				project.setStart_date(result.getString("start_date"));
+				project.setEnd_day(result.getString("end_date"));
+				
+				listProject.add(project);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error" + e.getLocalizedMessage());
+		}
+		
+		
+		return listProject ;
+		
+	}
 }
