@@ -136,13 +136,13 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" action="task-add" method="post">
                                 <div class="form-group">
                                     <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
+                                        <select class="form-control form-control-line" name="tenDuAn">
                                            <c:forEach items="${listProject}" var="project">
-                                           <option>${project.name}</option>
+                                           <option value="${project.id}">${project.name}</option>
                                            </c:forEach>
                                         </select>
                                     </div>
@@ -150,17 +150,17 @@
                                 <div class="form-group">
                                     <label class="col-md-12">Tên công việc</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Tên công việc"
+                                        <input type="text" placeholder="Tên công việc" name="tenCongViec"
                                             class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Người thực hiện</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Nguyễn Văn Tèo</option>
-                                            <option>Trần Thị Lan</option>
-                                            <option>Cao Ngọc Hiếu</option>
+                                        <select class="form-control form-control-line" name="nguoiThucHien">
+                                        <c:forEach items="${listUser}" var="user">
+                                           <option value="${user.id}">${user.fullname}</option>
+                                           </c:forEach> 
                                         </select>
                                     </div>
                                 </div>
@@ -168,14 +168,14 @@
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line"> 
+                                            class="form-control form-control-line" name="ngayBatDau"> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line"> 
+                                            class="form-control form-control-line" name="ngayKetThuc"> 
                                     </div>
                                 </div>
                                 <div class="form-group">

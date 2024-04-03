@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import enumdata.RoleName;
 
-@WebFilter(filterName = "authorFilter", urlPatterns = { "/add-user","/add-project","/role-add","/groupwork-add" })
+@WebFilter(filterName = "authorFilter", urlPatterns = { "/add-user","/add-project","/role-add","/groupwork-add","/task-add" })
 public class AuthorFilter implements Filter {
 
 	@Override
@@ -57,7 +57,7 @@ public class AuthorFilter implements Filter {
 //		}
 		
 		if(roleUser.equals(RoleName.LEAD.getName())) {
-			if(path.equals("/add-project") || path.equals("/groupwork-add")) {
+			if(path.equals("/add-project") || path.equals("/groupwork-add") || path.equals("/task-add")) {
 				chain.doFilter(request, response);
 			}else {
 				resp.sendRedirect(req.getContextPath()+"/login");
