@@ -3,7 +3,18 @@ package enumdata;
 public enum PathName {
 
 	ADDUSER("/add-user"),
-	USERS("/users");
+	USERS("/users"),
+	ROLES("/role-table"),
+	ADDROLES("/role-add"),
+	GROUPWORK("/groupwork"),
+	ADDGROUPWORK("/groupwork-add"),
+	DETAILSGROUPWORK("/groupwork-details"),
+	ADDTASK("/task-add"),
+	TASK("/task"),
+	PROFILE("/profile"),
+	EDITPROFILE("/profile-edit")
+	
+	;
 	
 	private final String name;
 	

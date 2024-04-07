@@ -25,9 +25,9 @@ public class UserController extends HttpServlet {
 			req.setAttribute("listRole", userService.getAllRole());
 			
 			req.getRequestDispatcher("user-add.jsp").forward(req, resp);
-		}else {
+		}else if (servletPath.equals(PathName.USERS.getName())){
 			// Test lấy danh sách User. 
-			System.out.println(userService.CallGetAllUser());
+			//System.out.println(userService.CallGetAllUser());
 			
 			req.setAttribute("listUser", userService.CallGetAllUser());
 			req.getRequestDispatcher("user-table.jsp").forward(req, resp);

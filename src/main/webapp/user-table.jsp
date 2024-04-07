@@ -51,7 +51,7 @@
 					data-target=".navbar-collapse"> <i class="fa fa-bars"></i>
 				</a>
 				<div class="top-left-part">
-					<a class="logo" href="index.html"> <b> <img
+					<a class="logo" href="dashboard"> <b> <img
 							src="plugins/images/pixeladmin-logo.png" alt="home" />
 					</b> <span class="hidden-xs"> <img
 							src="plugins/images/pixeladmin-text.png" alt="home" />
@@ -76,7 +76,7 @@
 								class="hidden-xs">Cybersoft</b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="profile.html">Thông tin cá nhân</a></li>
+								<li><a href="profile">Thông tin cá nhân</a></li>
 								<li><a href="#">Thống kê công việc</a></li>
 								<li class="divider"></li>
 								<li><a href="#">Đăng xuất</a></li>
@@ -93,25 +93,25 @@
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse slimscrollsidebar">
 				<ul class="nav" id="side-menu">
-					<li style="padding: 10px 0 0;"><a href="index.html"
+					<li style="padding: 10px 0 0;"><a href="dashboard"
 						class="waves-effect"><i class="fa fa-clock-o fa-fw"
 							aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
-					<li><a href="user-table.html" class="waves-effect"><i
+					<li><a href="users" class="waves-effect"><i
 							class="fa fa-user fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Thành viên</span></a></li>
-					<li><a href="role-table.html" class="waves-effect"><i
+					<li><a href="role-table" class="waves-effect"><i
 							class="fa fa-modx fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Quyền</span></a></li>
-					<li><a href="groupwork.html" class="waves-effect"><i
+					<li><a href="groupwork" class="waves-effect"><i
 							class="fa fa-table fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Dự án</span></a></li>
-					<li><a href="task.html" class="waves-effect"><i
+					<li><a href="task" class="waves-effect"><i
 							class="fa fa-table fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Công việc</span></a></li>
-					<li><a href="blank.html" class="waves-effect"><i
+					<li><a href="blank" class="waves-effect"><i
 							class="fa fa-columns fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Blank Page</span></a></li>
-					<li><a href="404.html" class="waves-effect"><i
+					<li><a href="404" class="waves-effect"><i
 							class="fa fa-info-circle fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Error 404</span></a></li>
 				</ul>
@@ -126,7 +126,7 @@
 						<h4 class="page-title">Danh sách thành viên</h4>
 					</div>
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-						<a href="user-add.html" class="btn btn-sm btn-success">Thêm
+						<a href="add-user" class="btn btn-sm btn-success">Thêm
 							mới</a>
 					</div>
 					<!-- /.col-lg-12 -->
@@ -149,19 +149,18 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${listUser}" var="user" varStatus="loop">
-										<tr>
-                                            <td>${loop.index +1}</td>
-                                            <td>${user.firstName}</td>
-                                            <td>${user.lastName}</td>
-                                            <td>${user.email}</td>
-                                            <td>${user.role.name}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="user-details.html" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
-										
+											<tr>
+												<td>${loop.index +1}</td>
+												<td>${user.firstName}</td>
+												<td>${user.lastName}</td>
+												<td>${user.email}</td>
+												<td>${user.role.name}</td>
+												<td><a href="#" class="btn btn-sm btn-primary">Sửa</a>
+													<a href="#" class="btn btn-sm btn-danger">Xóa</a> <a
+													href="user-details.html" class="btn btn-sm btn-info">Xem</a>
+												</td>
+											</tr>
+
 										</c:forEach>
 									</tbody>
 								</table>
