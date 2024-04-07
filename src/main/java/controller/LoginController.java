@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import config.MySQLConfig;
+import emtity.Role;
 import emtity.User;
 
 
@@ -62,8 +63,10 @@ public class LoginController extends HttpServlet {
 		// chuẩn bị câu truy vấn kiểm tra xem email và password có tồn tại trong CSDL
 		// hay không
 
-		String query = "SELECT *\n" + "FROM users u \n" + "WHERE  u.email = '" + email + "' AND u.password ='"
-				+ password + "'";
+		String query = "SELECT *\n"
+				+ "FROM users u \n"
+				+ "JOIN roles r ON r.id = u.id_role \n"
+				+ "WHERE  u.email = '"+email+"' AND u.password ='"+password+"'" ;
 
 		// Mở kết nối tới CSDL
 		Connection connection = MySQLConfig.getConnection();
@@ -85,6 +88,7 @@ public class LoginController extends HttpServlet {
 
 			while (resultSet.next()) {
 				User user = new User();
+				
 				// Lấy giá trị của cột id và gán vào thuộc tính id của đối tượng User
 				user.setId(resultSet.getInt("id"));
 				user.setEmail(resultSet.getString("email"));
@@ -92,7 +96,9 @@ public class LoginController extends HttpServlet {
 				user.setLastName( resultSet.getString("last_name"));
 				user.setFullname(resultSet.getString("fullname"));
 				user.setPhone(resultSet.getString("phone"));
-				user.setIdRole(resultSet.getInt("id_role"));
+				Role role = new Role();
+				role.setId(resultSet.getInt("id_role"));
+				user.setRole(role);
 
 				listUser.add(user);
 
@@ -100,7 +106,7 @@ public class LoginController extends HttpServlet {
 
 			if (listUser.size() > 0) {
 				
-					int role =  listUser.get(0).getIdRole();
+					int role =  listUser.get(0).getRole().getId();
 					Cookie cookieRole = new Cookie("role",String.valueOf(role));
 					cookieRole.setMaxAge(24*60*60);
 					resp.addCookie(cookieRole);

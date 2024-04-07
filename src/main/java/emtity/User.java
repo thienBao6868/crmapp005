@@ -11,7 +11,7 @@
 		private String fullname;
 		private String lastName;
 		private String firstName;
-		private int idRole;
+		private Role role;
 		
 		public int getId() {
 			return id;
@@ -55,12 +55,13 @@
 		public void setFirstName(String firstName) {
 			this.firstName = firstName;
 		}
-		public int getIdRole() {
-			return idRole;
+		public Role getRole() {
+			return role;
 		}
-		public void setIdRole(int idRole) {
-			this.idRole = idRole;
+		public void setRole(Role role) {
+			this.role = role;
 		}
+		
 		
 
 	}

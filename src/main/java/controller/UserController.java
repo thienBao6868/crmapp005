@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import enumdata.PathName;
 import service.UserService;
 
-@WebServlet (name = "userController", urlPatterns = {"/add-user"})
+@WebServlet (name = "userController", urlPatterns = {"/add-user","/users"})
 public class UserController extends HttpServlet {
 	
 	private UserService userService = new UserService();
@@ -20,10 +20,24 @@ public class UserController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		String servletPath = req.getServletPath();
+		if(servletPath.equals(PathName.ADDUSER.getName())) {
+			req.setAttribute("listRole", userService.getAllRole());
+			
+			req.getRequestDispatcher("user-add.jsp").forward(req, resp);
+		}else {
+			// Test lấy danh sách User. 
+			System.out.println(userService.CallGetAllUser());
+			
+			req.setAttribute("listUser", userService.CallGetAllUser());
+			req.getRequestDispatcher("user-table.jsp").forward(req, resp);
+			
+		}
 		
-		req.setAttribute("listRole", userService.getAllRole());
 		
-		req.getRequestDispatcher("user-add.jsp").forward(req, resp);
+		
+		
+		
 	}
 	
 	
