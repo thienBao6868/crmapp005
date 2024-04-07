@@ -10,10 +10,9 @@ import javax.servlet.ServletException;
 import config.MySQLConfig;
 
 public class TaskRepository {
-	private AssignTaskRepository  assignTaskRepository =  new AssignTaskRepository ();
 	
 
-	public int createTask (String tenCongViec, int idProject,String ngayBatDau, String ngayKetThuc,int idUser) {
+	public int createTask (String tenCongViec, int idProject,String ngayBatDau, String ngayKetThuc) {
 		
 		int result = 0 ;
 		ResultSet resultSet = null;
@@ -43,11 +42,6 @@ public class TaskRepository {
 				throw new ServletException("Failed to insert task into database");
 			}
 			
-			if(newTaskId != -1) {
-				assignTaskRepository.CreateAssignTask(newTaskId, idUser);
-			}else {
-				throw new ServletException("Failed to insert assignTask into database");
-			}
 			
 			
 			
@@ -58,7 +52,7 @@ public class TaskRepository {
 		}
 		
 		
-		return result;
+		return newTaskId;
 	}
 
 }
