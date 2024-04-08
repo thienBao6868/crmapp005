@@ -28,6 +28,12 @@ public class TaskController extends HttpServlet {
 			req.getRequestDispatcher("task-add.jsp").forward(req, resp);
 
 		} else if (servletPath.equals(PathName.TASK.getName())) {
+			
+			
+			
+			req.setAttribute("listTask", taskService.CallGetAllTask());
+			
+			
 			req.getRequestDispatcher("task.jsp").forward(req, resp);
 		}
 

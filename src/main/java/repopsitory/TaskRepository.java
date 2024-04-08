@@ -4,10 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
 import config.MySQLConfig;
+import emtity.Project;
+import emtity.Status;
+import emtity.Task;
+import emtity.User;
 
 public class TaskRepository {
 	
@@ -55,4 +61,52 @@ public class TaskRepository {
 		return newTaskId;
 	}
 
+	public List<Task> GetAllTask () {
+		
+		List<Task> listTask = new ArrayList<Task>();
+		
+		String query ="SELECT  t.id ,t.name as task_name , p.name as project_name , u.fullname , t.start_date ,t.end_date , s.name as status_name\n"
+				+ "FROM task t \n"
+				+ "JOIN status s ON s.id = t.id_status\n"
+				+ "JOIN project p ON p.id = t.id_project\n"
+				+ "JOIN assigntask a ON a.id_task = t.id \n"
+				+ "JOIN users u ON u.id = a.id_user ;";
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				Task task = new Task();
+				Status status = new Status();
+				Project project = new Project();
+				User user = new User();
+				
+				status.setName(resultSet.getString("status_name"));
+				project.setName(resultSet.getString("project_name"));
+				user.setFullname(resultSet.getString("fullname"));
+				
+				task.setId(resultSet.getInt("id"));
+				task.setName(resultSet.getString("task_name"));
+				task.setStart_date(resultSet.getString("start_date"));
+				task.setEnd_date(resultSet.getString("end_date"));
+				task.setStatus(status);
+				task.setProject(project);
+				task.setUser(user);
+				
+				
+				listTask.add(task);
+				
+				
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error Kết nối database : " + e.getLocalizedMessage());
+		}
+		
+		return listTask;
+	}
 }

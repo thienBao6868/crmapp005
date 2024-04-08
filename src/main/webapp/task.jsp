@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,30 +150,25 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach items="${listTask}" var="task" varStatus="loop">
 										<tr>
-											<td>1</td>
-											<td>Phân tích dự án</td>
-											<td>Dự án CRM</td>
-											<td>Nguyễn Văn Tèo</td>
-											<td>22/05/2019</td>
-											<td>30/05/2019</td>
-											<td>Đã hoàn thành</td>
+											<td>${loop.index + 1}</td>
+											<td>${task.name}</td>
+											<td>${task.project.name}</td>
+											<td>${task.user.fullname}</td>
+											<td>${task.start_date}</td>
+											<td>${task.end_date}</td>
+											<td>${task.status.name}</td>
 											<td><a href="#" class="btn btn-sm btn-primary">Sửa</a> <a
 												href="#" class="btn btn-sm btn-danger">Xóa</a> <a href="#"
 												class="btn btn-sm btn-info">Xem</a></td>
 										</tr>
-										<tr>
-											<td>1</td>
-											<td>Thiết kế database</td>
-											<td>Dự án CRM</td>
-											<td>Trần Thị Lan</td>
-											<td>22/05/2019</td>
-											<td>30/05/2019</td>
-											<td>Đang thực hiện</td>
-											<td><a href="#" class="btn btn-sm btn-primary">Sửa</a> <a
-												href="#" class="btn btn-sm btn-danger">Xóa</a> <a href="#"
-												class="btn btn-sm btn-info">Xem</a></td>
-										</tr>
+										
+										</c:forEach>
+									
+									
+										
+										
 									</tbody>
 								</table>
 							</div>
