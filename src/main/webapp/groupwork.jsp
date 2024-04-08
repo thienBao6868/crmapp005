@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,28 +150,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    	
+                                    	<c:forEach items="${listProject}" var="project" varStatus="loop">
+                                    	
                                         <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
+                                            <td>${loop.index+1}</td>
+                                            <td>${project.name}</td>
+                                            <td>${project.start_date}</td>
+                                            <td>${project.end_date }</td>
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-primary">Sửa</a>
                                                 <a href="#" class="btn btn-sm btn-danger">Xóa</a>
                                                 <a href="groupwork-details.html" class="btn btn-sm btn-info">Xem</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế hệ thống</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="groupwork-details.html" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
+                                    	</c:forEach>
+                                    
+                                    
+                                        
                                     </tbody>
                                 </table>
                             </div>

@@ -52,7 +52,7 @@ public class ProjectRepository {
 				project.setId(result.getInt("id"));
 				project.setName(result.getString("name"));
 				project.setStart_date(result.getString("start_date"));
-				project.setEnd_day(result.getString("end_date"));
+				project.setEnd_date(result.getString("end_date"));
 				
 				listProject.add(project);
 				

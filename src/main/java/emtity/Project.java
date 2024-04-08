@@ -5,7 +5,7 @@ public class Project {
 	private int id;
 	private String name;
 	private String start_date;
-	private String end_day;
+	private String end_date;
 	
 	
 	
@@ -27,11 +27,11 @@ public class Project {
 	public void setStart_date(String start_date) {
 		this.start_date = start_date;
 	}
-	public String getEnd_day() {
-		return end_day;
+	public String getEnd_date() {
+		return end_date;
 	}
-	public void setEnd_day(String end_day) {
-		this.end_day = end_day;
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
 	}
 	
 

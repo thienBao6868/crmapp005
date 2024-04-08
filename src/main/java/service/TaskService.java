@@ -33,8 +33,8 @@ public class TaskService {
 	public int CallCreateTask(String tenCongViec, int idProject, String ngayBatDau, String ngayKetThuc, int idUser) throws ServletException {
 		
 		int result = -1 ;
-		ngayBatDau = utility.ConvertStringToTimestamp(ngayBatDau);
-		ngayKetThuc = utility.ConvertStringToTimestamp(ngayKetThuc);
+		ngayBatDau = utility.ConvertDateTimeToTimestamp(ngayBatDau);
+		ngayKetThuc = utility.ConvertDateTimeToTimestamp(ngayKetThuc);
 
 		int newTaskId = taskRepository.createTask(tenCongViec, idProject, ngayBatDau, ngayKetThuc);
 
