@@ -22,6 +22,9 @@ public class RoleController extends HttpServlet {
 		String servletPath = req.getServletPath();
 		
 		if(servletPath.equals(PathName.ROLES.getName())) {
+			
+			req.setAttribute("listRole", roleService.CallGetAllRole());
+	
 			req.getRequestDispatcher("role-table.jsp").forward(req, resp);
 			
 		}else if (servletPath.equals(PathName.ADDROLES.getName())) {
