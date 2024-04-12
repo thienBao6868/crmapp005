@@ -71,4 +71,32 @@ public class UserRepository {
 		
 		return listUser ;
 	}
+	
+	public User getUserById(int id_user) {
+		User user = new User();
+		String query = "SELECT *\n"
+				+ "FROM users u \n"
+				+ "WHERE u.id = '"+id_user+"';";
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			ResultSet resultset = statement.executeQuery();
+			
+			while(resultset.next()) {
+				
+				user.setId(resultset.getInt("id"));
+				user.setEmail(resultset.getString("email"));
+				user.setFullname(resultset.getString("fullname"));
+				
+			}
+					
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi kết nối Database" + e.getLocalizedMessage() );
+		}
+		
+		return user;
+	}
 }

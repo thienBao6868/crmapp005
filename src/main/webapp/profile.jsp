@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,8 +135,8 @@
 										<a href="javascript:void(0)"><img
 											src="plugins/images/users/genu.jpg"
 											class="thumb-lg img-circle" alt="img"></a>
-										<h4 class="text-white">Nguyễn Văn Tèo</h4>
-										<h5 class="text-white">info.teo@gmail.com</h5>
+										<h4 class="text-white">${user.fullname}</h4>
+										<h5 class="text-white">${user.email}</h5>
 									</div>
 								</div>
 							</div>
@@ -149,7 +151,7 @@
 								<div class="white-box">
 									<div class="col-in row">
 										<div class="col-xs-12">
-											<h3 class="counter text-right m-t-15 text-danger">20%</h3>
+											<h3 class="counter text-right m-t-15 text-danger">${percentOfTask.chuaThucHien}</h3>
 										</div>
 										<div class="col-xs-12">
 											<i data-icon="E" class="linea-icon linea-basic"></i>
@@ -159,7 +161,7 @@
 											<div class="progress">
 												<div class="progress-bar progress-bar-danger"
 													role="progressbar" aria-valuenow="40" aria-valuemin="0"
-													aria-valuemax="100" style="width: 20%"></div>
+													aria-valuemax="100" style="width: ${percentOfTask.chuaThucHien}"></div>
 											</div>
 										</div>
 									</div>
@@ -171,7 +173,7 @@
 								<div class="white-box">
 									<div class="col-in row">
 										<div class="col-xs-12">
-											<h3 class="counter text-right m-t-15 text-megna">50%</h3>
+											<h3 class="counter text-right m-t-15 text-megna">${percentOfTask.dangThucHien}</h3>
 										</div>
 										<div class="col-xs-12">
 											<i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -181,7 +183,7 @@
 											<div class="progress">
 												<div class="progress-bar progress-bar-megna"
 													role="progressbar" aria-valuenow="40" aria-valuemin="0"
-													aria-valuemax="100" style="width: 50%"></div>
+													aria-valuemax="100" style="width: ${percentOfTask.dangThucHien}"></div>
 											</div>
 										</div>
 									</div>
@@ -193,7 +195,7 @@
 								<div class="white-box">
 									<div class="col-in row">
 										<div class="col-xs-12">
-											<h3 class="counter text-right m-t-15 text-primary">30%</h3>
+											<h3 class="counter text-right m-t-15 text-primary">${percentOfTask.hoanThanh}</h3>
 										</div>
 										<div class="col-xs-12">
 											<i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
@@ -203,7 +205,7 @@
 											<div class="progress">
 												<div class="progress-bar progress-bar-primary"
 													role="progressbar" aria-valuenow="40" aria-valuemin="0"
-													aria-valuemax="100" style="width: 30%"></div>
+													aria-valuemax="100" style="width:${percentOfTask.hoanThanh}"></div>
 											</div>
 										</div>
 									</div>
@@ -236,26 +238,20 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
-											<td>Phân tích dự án</td>
-											<td>Dự án CRM</td>
-											<td>22/05/2019</td>
-											<td>30/05/2019</td>
-											<td>Đã hoàn thành</td>
-											<td><a href="profile-edit.html"
-												class="btn btn-sm btn-primary">Cập nhật</a></td>
+									
+								 	<c:forEach items="${listTaskByUser}" var="task" varStatus="loop">
+									<tr> 
+											 <td>${loop.index +1}</td>
+											<td>${task.name}</td>
+											<td>${task.project.name}</td>
+											<td>${task.start_date }</td>
+											<td>${task.end_date}</td>
+											<td>${task.status.name}</td>
+											<td><a href="profile-edit?id_task=${task.id}"
+												class="btn btn-sm btn-primary">Cập nhật</a></td> 
 										</tr>
-										<tr>
-											<td>1</td>
-											<td>Thiết kế database</td>
-											<td>Dự án CRM</td>
-											<td>22/05/2019</td>
-											<td>30/05/2019</td>
-											<td>Đang thực hiện</td>
-											<td><a href="profile-edit.html"
-												class="btn btn-sm btn-primary">Cập nhật</a></td>
-										</tr>
+									</c:forEach> 
+										
 									</tbody>
 								</table>
 							</div>

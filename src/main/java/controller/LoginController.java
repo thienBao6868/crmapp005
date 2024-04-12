@@ -110,6 +110,14 @@ public class LoginController extends HttpServlet {
 					Cookie cookieRole = new Cookie("role",String.valueOf(role));
 					cookieRole.setMaxAge(24*60*60);
 					resp.addCookie(cookieRole);
+					// Thêm id_user lên cookie 
+					int id_user = listUser.get(0).getId();
+					Cookie cookieIdUser = new Cookie("id_user", String.valueOf(id_user));
+					cookieIdUser.setMaxAge(24*60*60);
+					resp.addCookie(cookieIdUser);
+					
+					
+					
 				if (remember != null) {
 					// Create a new cookie
 					Cookie cookie = new Cookie("email", email);
