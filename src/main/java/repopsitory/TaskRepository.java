@@ -144,4 +144,45 @@ public class TaskRepository {
 		
 		return listTask;
 	}
+	
+	public Task getTaskById(int id_task) {
+		
+		Task task = new Task();
+		String query ="  SELECT t.id as id_task, t.name, t.start_date, t.end_date, p.id as id_project, p.name as name_project, s.id as id_status , s.name as name_status\n"
+				+ " FROM task t \n"
+				+ " JOIN project p ON p.id = t.id_project\n"
+				+" JOIN status s ON s.id = t.id_status\n"
+				+ "WHERE t.id = '"+id_task+"';";
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Project project = new Project();
+				Status status = new Status();
+				
+				project.setId(resultSet.getInt("id_project"));
+				project.setName(resultSet.getString("name_project"));
+				
+				status.setId(resultSet.getInt("id_status"));
+				status.setName(resultSet.getString("name_status"));
+				
+				task.setId(resultSet.getInt("id_task"));
+				task.setName(resultSet.getString("name"));
+				task.setStart_date(resultSet.getString("start_date"));
+				task.setEnd_date(resultSet.getString("end_date"));
+				task.setProject(project);
+				task.setStatus(status);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi kết nối database :" + e.getLocalizedMessage());
+		}
+		return task;
+	}
 }

@@ -44,6 +44,12 @@ public class ProfileController extends HttpServlet {
 
 		} else if (servletPath.equals(PathName.EDITPROFILE.getName())) {
 			
+			int id_task = Integer.parseInt(req.getParameter("id_task")) ;
+			
+			
+			req.setAttribute("taskById", profileService.callGetTaskById(id_task));
+			req.setAttribute("listStatus", profileService.callGetAllStatus());
+	
 			req.getRequestDispatcher("profile-edit.jsp").forward(req, resp);
 		}
 

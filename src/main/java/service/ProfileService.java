@@ -3,8 +3,10 @@ package service;
 import java.util.List;
 
 import emtity.PercentOfTask;
+import emtity.Status;
 import emtity.Task;
 import emtity.User;
+import repopsitory.StatusRepository;
 import repopsitory.TaskRepository;
 import repopsitory.UserRepository;
 import utilities.Utility;
@@ -13,7 +15,7 @@ public class ProfileService {
 
 	private TaskRepository taskRepository = new TaskRepository();
 	private UserRepository userRepository = new UserRepository();
-
+	private StatusRepository statusRepository = new StatusRepository();
 	private Utility utility = new Utility();
 
 	public List<Task> callGetAllTaskByUser(int id_user) {
@@ -78,5 +80,19 @@ public class ProfileService {
 
 	public User callGetUserById(int id_user) {
 		return userRepository.getUserById(id_user);
+	}
+	
+	public List<Status> callGetAllStatus () {
+		return statusRepository.getAllStatus();
+	}
+	
+	public Task callGetTaskById(int id_task) {
+		
+		
+		Task task = taskRepository.getTaskById(id_task);
+		
+		task.setStart_date(utility.convertTimestampToDateTime(task.getStart_date()));
+		task.setEnd_date(utility.convertTimestampToDateTime(task.getEnd_date()));
+		return task ;
 	}
 }
