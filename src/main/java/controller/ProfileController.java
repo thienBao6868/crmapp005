@@ -37,7 +37,7 @@ public class ProfileController extends HttpServlet {
 					}
 				}
 			}
-			req.setAttribute("percentOfTask",profileService.getPercentOfTask(id_user));
+			req.setAttribute("percentOfTask",profileService.getPercentOfTask(id_user)); 
 			req.setAttribute("listTaskByUser", profileService.callGetAllTaskByUser(id_user));
 			req.setAttribute("user", profileService.callGetUserById(id_user));
 			req.getRequestDispatcher("profile.jsp").forward(req, resp);

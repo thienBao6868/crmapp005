@@ -31,15 +31,19 @@ public class ProfileService {
 
 	public PercentOfTask getPercentOfTask(int id_user) {
 		PercentOfTask percent = new PercentOfTask();
-		int totalTaskHoanThanh = 0;
 		int totalTaskChuaThucHien = 0;
 		int totalTaskDangThucHien = 0;
+		int totalTaskHoanThanh = 0;
+		
+		
+		
 		float percentOfTaskDangThucHien;
 		float percentOfTaskHoanThanh;
 		float percentOfTaskChuaThucHien;
+		
 		List<Task> listTask = taskRepository.getAllTaskByUser(id_user);
 
-		int totalTask = listTask.size();
+		int totalTask = listTask.size(); // 4 task 
 
 		if (totalTask == 0) {
 			percent.setDangThucHien("0");
@@ -50,28 +54,33 @@ public class ProfileService {
 			for (int i = 0; i < listTask.size(); i++) {
 
 				if (listTask.get(i).getStatus().getId() == 1) {
-					totalTaskDangThucHien++ ;
+					totalTaskChuaThucHien ++;
 				} else if (listTask.get(i).getStatus().getId() == 2) {
-					totalTaskHoanThanh++;
+					totalTaskDangThucHien++;
 				} else if (listTask.get(i).getStatus().getId() == 3) {
-					totalTaskChuaThucHien++;
+					totalTaskHoanThanh++;
 				} else {
 					System.out.print("Không tìm thấy Id");
 				}
 
 			}
 			
+			
+			
 			// Để ý khi sử dụng kiểu dữ liệu tính toán 
-			percentOfTaskDangThucHien = ( (float) totalTaskDangThucHien / (float) totalTask) * 100;
-			 String percentString = String.format("%.2f%%", percentOfTaskDangThucHien);
-			percentOfTaskHoanThanh = ((float) totalTaskHoanThanh / (float)totalTask) * 100;
-			 String percentString1 = String.format("%.2f%%", percentOfTaskHoanThanh);
 			percentOfTaskChuaThucHien =  ((float)totalTaskChuaThucHien / (float)totalTask) * 100;
-			 String percentString2 = String.format("%.2f%%",percentOfTaskChuaThucHien);
+			 String percentChuaThucHien = String.format("%.2f%%",percentOfTaskChuaThucHien);
+			
+			percentOfTaskDangThucHien = ( (float) totalTaskDangThucHien / (float) totalTask) * 100;
+			 String percentDangThucHien = String.format("%.2f%%", percentOfTaskDangThucHien);
+			 
+			percentOfTaskHoanThanh = ((float) totalTaskHoanThanh / (float)totalTask) * 100;
+			 String percentHoanThanh = String.format("%.2f%%", percentOfTaskHoanThanh);
+			
 
-			percent.setDangThucHien(percentString);
-			percent.setChuaThucHien(percentString1);
-			percent.setHoanThanh(percentString2);
+			percent.setChuaThucHien(percentChuaThucHien);
+			percent.setDangThucHien(percentDangThucHien);
+			percent.setHoanThanh(percentHoanThanh);
 
 		}
 		return percent;

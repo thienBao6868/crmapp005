@@ -2,9 +2,11 @@ package emtity;
 
 public class PercentOfTask {
 
-	private String hoanThanh ;
 	private String chuaThucHien;
 	private String dangThucHien;
+	private String hoanThanh ;
+	
+	
 	public String getHoanThanh() {
 		return hoanThanh;
 	}

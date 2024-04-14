@@ -33,6 +33,12 @@ public class UserController extends HttpServlet {
 			req.getRequestDispatcher("user-table.jsp").forward(req, resp);
 			
 		}else if (servletPath.equals(PathName.DETAILUSER.getName())) {
+			int id_user = Integer.parseInt(req.getParameter("id_user")) ;
+			
+			req.setAttribute("percentOfTask",userService.getPercentOfTask(id_user)); 
+			req.setAttribute("user", userService.callGetUserById(id_user));
+			req.setAttribute("listStatus",userService.callGetAllStatus());
+			req.setAttribute("listTask", userService.callGetAllTaskByUser(id_user));
 			req.getRequestDispatcher("user-detail.jsp").forward(req, resp);
 		}
 		
