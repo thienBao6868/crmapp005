@@ -5,6 +5,7 @@ public enum PathName {
 	ADDUSER("/add-user"),
 	USERS("/users"),
 	DETAILUSER("/user-details"),
+	EDITUSER("/user-edit"),
 	ROLES("/role-table"),
 	ADDROLES("/role-add"),
 	GROUPWORK("/groupwork"),

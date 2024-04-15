@@ -155,7 +155,7 @@
 												<td>${user.lastName}</td>
 												<td>${user.email}</td>
 												<td>${user.role.name}</td>
-												<td><a href="#" class="btn btn-sm btn-primary">Sửa</a>
+												<td><a href="user-edit?id_user=${user.id}" class="btn btn-sm btn-primary">Sửa</a>
 													<a href="#" class="btn btn-sm btn-danger">Xóa</a> <a
 													href="user-details?id_user=${user.id}" class="btn btn-sm btn-info">Xem</a>
 												</td>

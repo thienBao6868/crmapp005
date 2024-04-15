@@ -66,4 +66,8 @@ public class RoleRepository {
 		
 	}
 	
+	
+	//public int deleteRoleById (int id_role) {
+		
+	//}
 }

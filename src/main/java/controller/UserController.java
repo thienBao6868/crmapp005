@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import enumdata.PathName;
 import service.UserService;
 
-@WebServlet (name = "userController", urlPatterns = {"/add-user","/users","/user-details"})
+@WebServlet (name = "userController", urlPatterns = {"/add-user","/users","/user-details","/user-edit"})
 public class UserController extends HttpServlet {
 	
 	private UserService userService = new UserService();
@@ -40,6 +40,12 @@ public class UserController extends HttpServlet {
 			req.setAttribute("listStatus",userService.callGetAllStatus());
 			req.setAttribute("listTask", userService.callGetAllTaskByUser(id_user));
 			req.getRequestDispatcher("user-detail.jsp").forward(req, resp);
+		}else if (servletPath.equals(PathName.EDITUSER.getName())) {
+			
+			int id_user = Integer.parseInt(req.getParameter("id_user")) ;
+			req.setAttribute("listRole", userService.getAllRole());
+			req.setAttribute("user", userService.callGetUserById(id_user));
+			req.getRequestDispatcher("user-edit.jsp").forward(req, resp);
 		}
 		
 		
