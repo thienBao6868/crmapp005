@@ -185,4 +185,23 @@ public class TaskRepository {
 		}
 		return task;
 	}
+	
+	public int updateStatusOfTaskd(int id_task, int id_status) {
+		int result = 0;
+		
+		String query = "UPDATE task t\n"
+				+ "JOIN assigntask a ON a.id_task = t.id\n"
+				+ "SET t.id_status = '"+id_status+"' , a.id_status = '"+id_status+"'\n"
+				+ "WHERE t.id = '"+id_task+"';"	;
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			result = statement.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi update status of Task : " + e.getLocalizedMessage() );
+		}
+		return result;
+	}
 }

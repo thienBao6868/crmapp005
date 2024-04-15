@@ -52,6 +52,8 @@ public class UserController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		String firstName = req.getParameter("firstname");
+		String lastName = req.getParameter("lastname");
 		String fullName = req.getParameter("fullname");
 		String email = req.getParameter("email");
 		String passWord = req.getParameter("password");
@@ -59,7 +61,7 @@ public class UserController extends HttpServlet {
 		int idRole = Integer.parseInt(req.getParameter("idRole"));
 		
 		
-		userService.callCreateUser(fullName, email, passWord, phone, idRole);
+		userService.callCreateUser(firstName, lastName,fullName, email, passWord, phone, idRole);
 	
 		resp.sendRedirect(req.getContextPath() + "/add-user");
 	}

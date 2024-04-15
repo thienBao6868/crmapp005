@@ -12,11 +12,11 @@ import emtity.User;
 
 public class UserRepository {
 
-	public int createUser(String fullName, String email, String passWord, String phone, int idRole ) {
+	public int createUser(String firstName, String lastName, String fullName, String email, String passWord, String phone, int idRole ) {
 		
 		int result = 0 ;
 		
-		String query = "INSERT INTO users (email, password,fullname,phone,id_role) VALUES ('"+email+"','"+passWord+"','"+fullName+"','"+phone+"',"+idRole+")";
+		String query = "INSERT INTO users (email, password,fullname,phone,id_role,first_name,last_name) VALUES ('"+email+"','"+passWord+"','"+fullName+"','"+phone+"','"+idRole+"','"+firstName+"','"+lastName+"')";
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -99,4 +99,6 @@ public class UserRepository {
 		
 		return user;
 	}
+	
+	
 }

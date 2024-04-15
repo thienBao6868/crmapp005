@@ -31,6 +31,10 @@ public class GroupworkController extends HttpServlet {
 		} else if (servletPath.equals(PathName.ADDGROUPWORK.getName())) {
 			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
 		} else if (servletPath.equals(PathName.DETAILSGROUPWORK.getName())) {
+			
+			int id_project = Integer.parseInt(req.getParameter("id_project"));
+			
+			System.out.println(id_project);
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
 		}
 

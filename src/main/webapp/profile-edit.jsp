@@ -125,11 +125,11 @@
 				</div>
 				<!-- /.row -->
 				<!-- .row -->
-				<div class="row">
+				<div class="row">s
 					<div class="col-md-2 col-12"></div>
 					<div class="col-md-8 col-xs-12">
 						<div class="white-box">
-							<form class="form-horizontal form-material">
+							<form class="form-horizontal form-material" action="api/profile-edit?id_task=${taskById.id}" method="post">
 								<div class="form-group">
 									<label class="col-md-12">Tên dự án</label>
 									<div class="col-md-12">
@@ -161,7 +161,7 @@
 								<div class="form-group">
 									<label class="col-md-12">Trạng thái</label>
 									<div class="col-md-12">
-										<select class="form-control form-control-line">
+										<select class="form-control form-control-line" name="id_status">
 										 	<c:forEach items="${listStatus}" var="status">
 												<option value="${status.id}" ${status.id == taskById.status.id ? 'selected' : ''}>${status.name}</option>
 											</c:forEach>

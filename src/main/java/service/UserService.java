@@ -29,8 +29,8 @@ public class UserService {
 		return roleRepository.getAll();
 	}
 	
-	public int callCreateUser(String fullName, String email, String passWord, String phone, int idRole) {
-		return userRepository.createUser(fullName, email, passWord, phone, idRole);
+	public int callCreateUser(String firstName, String lastName, String fullName, String email, String passWord, String phone, int idRole) {
+		return userRepository.createUser(firstName, lastName, fullName, email, passWord, phone, idRole);
 	}
 	public List<User> CallGetAllUser () {
 		return userRepository.GetAllUser();

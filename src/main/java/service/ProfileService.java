@@ -104,4 +104,8 @@ public class ProfileService {
 		task.setEnd_date(utility.convertTimestampToDateTime(task.getEnd_date()));
 		return task ;
 	}
+	
+	public boolean callUpdateStatusOfTaskd(int id_task,int id_status) {
+		return taskRepository.updateStatusOfTaskd(id_task, id_status) > 0;
+	}
 }
