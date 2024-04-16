@@ -75,4 +75,11 @@ public class TaskService {
 		return task;
 	}
 	
+	public boolean callUpdateTaskById (int id_task, int id_project, int id_user, int id_status, String tenCongViec,
+			String start_date, String end_date) {
+		start_date = utility.ConvertDateTimeToTimestamp(start_date);
+		end_date = utility.ConvertDateTimeToTimestamp(end_date);
+		
+		return taskRepository.updateTaskById(id_task, id_project, id_user, id_status, tenCongViec, start_date, end_date) > 0;
+	}
 }

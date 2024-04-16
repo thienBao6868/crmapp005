@@ -14,7 +14,40 @@ import com.google.gson.Gson;
 import response.BaseResponse;
 import service.TaskService;
 
-@WebServlet(name="taskApiController", urlPatterns = {"/api/task"})
+@WebServlet(name="taskApiController", urlPatterns = {"/api/task-edit"})
 public class TaskApiController extends HttpServlet{
+	private Gson gson = new Gson();
+	private TaskService taskService = new TaskService();
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		int id_task = Integer.parseInt(req.getParameter("id_task"));
+		int id_project = Integer.parseInt(req.getParameter("id_project"));
+		int id_user = Integer.parseInt(req.getParameter("id_user"));
+		int id_status = Integer.parseInt(req.getParameter("id_status"));
+		String tenCongViec = req.getParameter("tenCongViec");
+		String start_date = req.getParameter("start_date");
+		String end_date = req.getParameter("end_date");
+		
+		boolean isSuccess = taskService.callUpdateTaskById(id_task, id_project, id_user, id_status, tenCongViec, start_date, end_date);
+		
+		BaseResponse baseResponse = new BaseResponse();
+
+		baseResponse.setStatusCode(200);
+		baseResponse.setMessage(isSuccess ? "Update user Thành Công" : " update user Thất bại");
+		baseResponse.setData(isSuccess);
+
+		String json = gson.toJson(baseResponse);
+
+		resp.setCharacterEncoding("UTF-8");
+		resp.setHeader("content-Type", "application/json");
+
+		PrintWriter printWrite = resp.getWriter();
+		printWrite.write(json);
+		printWrite.close();
+		
+		
+	}
 	
 };

@@ -136,7 +136,7 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material" >
+                            <form class="form-horizontal form-material" id="form-save" id-task="${task.id}"  >
                                 <div class="form-group">
                                     <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
@@ -191,7 +191,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-success">cập nhật</button>
-                                        <a href="task.html" class="btn btn-primary">Quay lại</a>
+                                        <a href="task" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>
@@ -219,6 +219,8 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <!--insert file task-edit.js  -->
+    <script src="js/task-edit.js"></script>
 </body>
 
 </html>
