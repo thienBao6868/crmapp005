@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import enumdata.PathName;
 import service.GroupworkService;
 
-@WebServlet(name = "groupworkController", urlPatterns = { "/groupwork-add", "/groupwork", "/groupwork-details" })
+@WebServlet(name = "groupworkController", urlPatterns = { "/groupwork-add", "/groupwork", "/groupwork-details","/groupwork-edit"})
 public class GroupworkController extends HttpServlet {
 
 	private GroupworkService groupworkService = new GroupworkService();
@@ -32,10 +32,17 @@ public class GroupworkController extends HttpServlet {
 			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
 		} else if (servletPath.equals(PathName.DETAILSGROUPWORK.getName())) {
 			
-			int id_project = Integer.parseInt(req.getParameter("id_project"));
+		
 			
-			System.out.println(id_project);
+			
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
+		} else if (servletPath.equals(PathName.EDITGROUPWORK.getName())) {
+			
+			int id_project = Integer.parseInt(req.getParameter("id-project"));
+			
+			req.setAttribute("project", groupworkService.callGetProjectById(id_project));
+			
+			req.getRequestDispatcher("groupwork-edit.jsp").forward(req, resp);
 		}
 
 	}

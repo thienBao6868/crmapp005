@@ -35,5 +35,25 @@ public class GroupworkService {
 		
 		return listProject;
 	}
+	
+	public Project callGetProjectById(int id_project) {
+		
+		
+		Project project = projectRepository.getProjectById(id_project);
+		
+		project.setStart_date(utility.convertTimestampToDateTime(project.getStart_date()));
+		project.setEnd_date(utility.convertTimestampToDateTime(project.getEnd_date()));
+		
+		return project;
+		
+	}
+	
+	public boolean callUpdateProjectById (int id_project, String nameProject, String startDate, String endDate) {
+		
+		startDate = utility.ConvertDateTimeToTimestamp(startDate);
+		endDate = utility.ConvertDateTimeToTimestamp(endDate);
+		
+		return projectRepository.updateProjectById(id_project, nameProject, startDate, endDate) > 0;
+	}
 
 }

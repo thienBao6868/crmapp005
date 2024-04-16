@@ -12,6 +12,7 @@ public enum PathName {
 	GROUPWORK("/groupwork"),
 	ADDGROUPWORK("/groupwork-add"),
 	DETAILSGROUPWORK("/groupwork-details"),
+	EDITGROUPWORK("/groupwork-edit"),
 	ADDTASK("/task-add"),
 	TASK("/task"),
 	PROFILE("/profile"),

@@ -6,18 +6,22 @@ $(document).ready(function() {
 	$('#form-save').submit(function(event) {
 		// Ngăn chặn hành vi mặc định của form
 		event.preventDefault();
-		// Lấy giá trị của trường input có id là "id-task"
-		var id_role = $("#form-save").attr("id-role");
+		
+		// Lấy giá trị của trường input có id là "id-project"
+		var id_project = $("#form-save").attr("id-project");
 		// Lấy giá trị của trường input có name là "name"
-		var name = $("input[name='name']").val();
-		// Lấy giá trị của trường input có name là "description"
-		var description = $("input[name='description']").val();
+		var name = $("input[name='tenDuAn']").val();
+		// Lấy giá trị của trường input có name là "ngayBatDau"
+		var start_date = $("input[name='ngayBatDau']").val();
+		// Lấy giá trị của trường input có name là "ngayKetThuc"
+		var end_date = $("input[name='ngayKetThuc']").val();
+		
 
 		// Gọi API thông qua AJAX
 		$.ajax({
 			method: "POST",
-			url: "http://localhost:8080/crmapp05/api/role-edit",
-			data: {id_role:id_role,name:name,description:description},
+			url: "http://localhost:8080/crmapp05/api/groupwork-edit",
+			data: {id_project:id_project,name:name,start_date:start_date,end_date:end_date},
 			success: function(response) {
 				// Xử lý khi gọi API thành công
 				console.log(response);
