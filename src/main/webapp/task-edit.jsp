@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,52 +39,54 @@
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top m-b-0">
-                <div class="navbar-header"> 
-                    <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
-                        <i class="fa fa-bars"></i>
+            <div class="navbar-header">
+                <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="top-left-part">
+                    <a class="logo" href="dashboard">
+                        <b>
+                            <img src="plugins/images/pixeladmin-logo.png" alt="home" />
+                        </b>
+                        <span class="hidden-xs">
+                            <img src="plugins/images/pixeladmin-text.png" alt="home" />
+                        </span>
                     </a>
-                    <div class="top-left-part">
-                        <a class="logo" href="dashboard">
-                            <b>
-                                <img src="plugins/images/pixeladmin-logo.png" alt="home" />
-                            </b>
-                            <span class="hidden-xs">
-                                <img src="plugins/images/pixeladmin-text.png" alt="home" />
-                            </span>
-                        </a>
-                    </div>
-                    <ul class="nav navbar-top-links navbar-left m-l-20 hidden-xs">
-                        <li>
-                            <form role="search" class="app-search hidden-xs">
-                                <input type="text" placeholder="Search..." class="form-control"> 
-                                <a href="">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-top-links navbar-right pull-right">
-                        <li>
-                            <div class="dropdown">
-                                <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#"> 
-                                    <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle" />
-                                    <b class="hidden-xs">Cybersoft</b> 
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="profile">Thông tin cá nhân</a></li>
-                                    <li><a href="#">Thống kê công việc</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Đăng xuất</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
-                <!-- /.navbar-header -->
-                <!-- /.navbar-top-links -->
-                <!-- /.navbar-static-side -->
-            </nav>
-       <!-- Left navbar-header -->
+                <ul class="nav navbar-top-links navbar-left m-l-20 hidden-xs">
+                    <li>
+                        <form role="search" class="app-search hidden-xs">
+                            <input type="text" placeholder="Search..." class="form-control">
+                            <a href="">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav navbar-top-links navbar-right pull-right">
+                    <li>
+                        <div class="dropdown">
+                            <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#">
+                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
+                                    class="img-circle" />
+                                <b class="hidden-xs">Cybersoft</b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="profile">Thông tin cá nhân</a></li>
+                                <li><a href="#">Thống kê công việc</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- /.navbar-top-links -->
+            <!-- /.navbar-static-side -->
+        </nav>
+        <!-- Left navbar-header -->
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
@@ -123,7 +127,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Chỉnh sửa thông tin dự án ${project.name}</h4>
+                        <h4 class="page-title">Cập nhật lại công Việc ${task.name} </h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -132,29 +136,62 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material" id="form-save" id-project="${project.id}">
+                            <form class="form-horizontal form-material" >
                                 <div class="form-group">
-                                    <label class="col-md-12">Tên dự án</label>
+                                    <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
-                                        <input name="tenDuAn" type="text" value="${project.name}"
-                                            class="form-control form-control-line"> </div>
+                                        <select class="form-control form-control-line" name="tenDuAn">
+                                           <c:forEach items="${listProject}" var="project">
+                                           <option value="${project.id}" ${task.project.id == project.id ? 'selected': ''}>${project.name}</option>
+                                           </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Tên công việc</label>
+                                    <div class="col-md-12">
+                                        <input type="text" value="${task.name}" name="tenCongViec"
+                                            class="form-control form-control-line">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Người thực hiện</label>
+                                    <div class="col-md-12">
+                                        <select class="form-control form-control-line" name="nguoiThucHien">
+                                        <c:forEach items="${listUser}" var="user">
+                                           <option value="${user.id}">${user.fullname}</option>
+                                           </c:forEach> 
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
-                                        <input name="ngayBatDau" type="text" value="${project.start_date}"
-                                            class="form-control form-control-line"> </div>
+                                        <input type="text" value="${task.start_date}"
+                                            class="form-control form-control-line" name="ngayBatDau"> 
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
-                                        <input name="ngayKetThuc" type="text" value="${project.end_date}"
-                                            class="form-control form-control-line"> </div>
+                                        <input type="text" value="${task.end_date}"
+                                            class="form-control form-control-line" name="ngayKetThuc"> 
+                                    </div>
                                 </div>
+                                <div class="form-group">
+									<label class="col-md-12">Trạng thái</label>
+									<div class="col-md-12">
+										<select class="form-control form-control-line" name="id_status">
+										 	<c:forEach items="${listStatus}" var="status">
+												<option value="${status.id}" ${status.id == task.status.id ? 'selected' : ''}>${status.name}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-success">cập nhật</button>
-                                        <a href="groupwork.html" class="btn btn-primary">Quay lại</a>
+                                        <a href="task.html" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>
@@ -182,9 +219,6 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
-    <!--insert file groupwork-edit.js -->
-    <script src="js/groupwork-edit.js"></script>
-    
 </body>
 
 </html>

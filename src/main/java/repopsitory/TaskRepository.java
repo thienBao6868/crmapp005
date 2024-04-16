@@ -49,7 +49,7 @@ public class TaskRepository {
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("Error : " + e.getLocalizedMessage());
+			System.out.println("Error create Task : " + e.getLocalizedMessage());
 		}
 
 		return newTaskId;
@@ -92,7 +92,7 @@ public class TaskRepository {
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("Error Kết nối database : " + e.getLocalizedMessage());
+			System.out.println("Error Kết nối database lấy all task : " + e.getLocalizedMessage());
 		}
 
 		return listTask;
@@ -139,7 +139,7 @@ public class TaskRepository {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("Error Kết nối database : " + e.getLocalizedMessage());
+			System.out.println("Error Kết nối database lấy all task by User : " + e.getLocalizedMessage());
 		}
 		
 		return listTask;
@@ -181,7 +181,7 @@ public class TaskRepository {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("Lỗi kết nối database :" + e.getLocalizedMessage());
+			System.out.println("Lỗi kết nối database lấy task by id :" + e.getLocalizedMessage());
 		}
 		return task;
 	}

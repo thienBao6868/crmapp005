@@ -5,10 +5,12 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import emtity.Project;
+import emtity.Status;
 import emtity.Task;
 import emtity.User;
 import repopsitory.AssignTaskRepository;
 import repopsitory.ProjectRepository;
+import repopsitory.StatusRepository;
 import repopsitory.TaskRepository;
 import repopsitory.UserRepository;
 import utilities.Utility;
@@ -19,6 +21,7 @@ public class TaskService {
 	private ProjectRepository projectRepository = new ProjectRepository();
 	private UserRepository userRepository = new UserRepository();
 	private TaskRepository taskRepository = new TaskRepository();
+	private StatusRepository statusRepository = new StatusRepository();
 	private AssignTaskRepository assignTaskRepository = new AssignTaskRepository();
 	private Utility utility = new Utility();
 
@@ -59,5 +62,17 @@ public class TaskService {
 		return listTask;
 	}
 	
+	public List<Status> callGetAllStatus(){
+		return statusRepository.getAllStatus();
+	}
+	
+	public Task callGetTaskById(int id_task) {
+		
+		
+		Task task = taskRepository.getTaskById(id_task);
+		task.setStart_date(utility.convertTimestampToDateTime(task.getStart_date()));
+		task.setEnd_date(utility.convertTimestampToDateTime(task.getEnd_date()));
+		return task;
+	}
 	
 }

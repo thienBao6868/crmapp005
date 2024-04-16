@@ -15,6 +15,7 @@ public enum PathName {
 	EDITGROUPWORK("/groupwork-edit"),
 	ADDTASK("/task-add"),
 	TASK("/task"),
+	EDITTASK("/task-edit"),
 	PROFILE("/profile"),
 	EDITPROFILE("/profile-edit")
 	

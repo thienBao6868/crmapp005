@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,8 +126,7 @@
 						<h4 class="page-title">Danh sách công việc</h4>
 					</div>
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-						<a href="task-add" class="btn btn-sm btn-success">Thêm
-							mới</a>
+						<a href="task-add" class="btn btn-sm btn-success">Thêm mới</a>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -151,24 +150,25 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${listTask}" var="task" varStatus="loop">
-										<tr>
-											<td>${loop.index + 1}</td>
-											<td>${task.name}</td>
-											<td>${task.project.name}</td>
-											<td>${task.user.fullname}</td>
-											<td>${task.start_date}</td>
-											<td>${task.end_date}</td>
-											<td>${task.status.name}</td>
-											<td><a href="#" class="btn btn-sm btn-primary">Sửa</a> <a
-												href="#" class="btn btn-sm btn-danger">Xóa</a> <a href="#"
-												class="btn btn-sm btn-info">Xem</a></td>
-										</tr>
-										
+											<tr>
+												<td>${loop.index + 1}</td>
+												<td>${task.name}</td>
+												<td>${task.project.name}</td>
+												<td>${task.user.fullname}</td>
+												<td>${task.start_date}</td>
+												<td>${task.end_date}</td>
+												<td>${task.status.name}</td>
+												<td><a href="task-edit?id_task=${task.id}"
+													class="btn btn-sm btn-primary">Sửa</a> <a href="#"
+													class="btn btn-sm btn-danger">Xóa</a> <a href="#"
+													class="btn btn-sm btn-info">Xem</a></td>
+											</tr>
+
 										</c:forEach>
-									
-									
-										
-										
+
+
+
+
 									</tbody>
 								</table>
 							</div>
