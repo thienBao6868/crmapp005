@@ -12,36 +12,38 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import response.BaseResponse;
-import service.ProfileService;
-import service.TaskService;
+import service.RoleService;
 
-@WebServlet(name="profileApiController", urlPatterns = {"/api/profile-edit"})
-public class ProfileApiController extends HttpServlet {
-
-	private Gson gson = new Gson();
-	private ProfileService profileService = new ProfileService();
+@WebServlet(name="roleApiController", urlPatterns = {"/api/role-edit"})
+public class RoleApiController extends HttpServlet {
 	
+	private RoleService roleService = new RoleService();
+	private Gson gson = new Gson();
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int id_task = Integer.parseInt(req.getParameter("idTask")) ;
-		int id_status = Integer.parseInt(req.getParameter("idStatus"));
 		
-		boolean isSuccess = profileService.callUpdateStatusOfTaskd(id_task, id_status);
+		int id_role = Integer.parseInt(req.getParameter("id_role")) ;
+		String name = req.getParameter("name");
+		String description = req.getParameter("description");
+		
+		boolean isSuccess = roleService.callUpdateRoleById(id_role, name, description);
 		
 		BaseResponse baseResponse = new BaseResponse();
-		
+
 		baseResponse.setStatusCode(200);
-		baseResponse.setMessage(isSuccess? "Update status of Task Thành Công" : " update status of task Thất bại");
+		baseResponse.setMessage(isSuccess ? "Update role Thành Công" : " update roleThất bại");
 		baseResponse.setData(isSuccess);
-		
+
 		String json = gson.toJson(baseResponse);
-		
+
 		resp.setCharacterEncoding("UTF-8");
-		resp.setHeader("content-Type","application/json");
-		
+		resp.setHeader("content-Type", "application/json");
+
 		PrintWriter printWrite = resp.getWriter();
 		printWrite.write(json);
 		printWrite.close();
+		
+		
 	}
 
 }

@@ -51,23 +51,62 @@ public class RoleRepository {
 
 	public int createRole(String name, String description) {
 		int result = 0;
-		String query = "INSERT  INTO roles (name, description) VALUES ('"+name+"','"+description+"')";
+		String query = "INSERT  INTO roles (name, description) VALUES ('" + name + "','" + description + "')";
 		Connection connection = MySQLConfig.getConnection();
-		
+
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
 			result = statement.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("lỗi kết nối database" + e.getLocalizedMessage());
 		}
 		return result;
-		
+
 	}
-	
-	
-	//public int deleteRoleById (int id_role) {
-		
-	//}
+
+	public Role getRoleById(int id_role) {
+		Role role = new Role();
+		String query = "SELECT *\n" + "FROM roles r \n" + "WHERE r.id = '" + id_role + "' ;";
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+
+			ResultSet result = statement.executeQuery();
+
+			while (result.next()) {
+
+				role.setId(result.getInt("id"));
+
+				role.setName(result.getString("name"));
+
+				role.setDescription(result.getString("description"));
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi truy vấn roles" + e.getLocalizedMessage());
+		}
+		return role;
+	}
+
+	public int updateRoleById(int id_role, String name, String description) {
+		int result = 0;
+
+		String query = "UPDATE roles r\n" + "SET r.name = '" + name + "', r.description = '" + description + "'\n"
+				+ "WHERE r.id = '"+id_role+"'  ;";
+		Connection connection = MySQLConfig.getConnection();
+
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			result = statement.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("lỗi update role : " + e.getLocalizedMessage());
+		}
+		return result;
+
+	}
 }

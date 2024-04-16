@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import enumdata.PathName;
 import service.RoleService;
 
-@WebServlet(name = "roleController", urlPatterns = { "/role-add", "/role-table" })
+@WebServlet(name = "roleController", urlPatterns = { "/role-add", "/role-table","/role-edit" })
 public class RoleController extends HttpServlet {
 
 	private RoleService roleService = new RoleService();
@@ -29,6 +29,14 @@ public class RoleController extends HttpServlet {
 			
 		}else if (servletPath.equals(PathName.ADDROLES.getName())) {
 			req.getRequestDispatcher("role-add.jsp").forward(req, resp);
+		}else if  (servletPath.equals(PathName.EDITROLES.getName())) {
+			
+			int id_role = Integer.parseInt(req.getParameter("id_role")) ;
+			
+			req.setAttribute("role", roleService.callGetRoleById(id_role));
+			
+			req.getRequestDispatcher("role-edit.jsp").forward(req, resp);
+			
 		}
 		
 		

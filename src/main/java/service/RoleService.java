@@ -18,4 +18,14 @@ public class RoleService {
 	public List<Role> CallGetAllRole() {
 		return roleRepository.getAll();
 	}
+
+	public Role callGetRoleById(int id_role) {
+
+		return roleRepository.getRoleById(id_role);
+	}
+
+	public boolean callUpdateRoleById(int id_role, String name, String description) {
+
+		return roleRepository.updateRoleById(id_role, name, description) > 0;
+	}
 }

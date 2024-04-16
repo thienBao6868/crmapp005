@@ -25,16 +25,12 @@ public class UserApiController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<User> listUser = userService.CallGetAllUser();
-
 		String data = gson.toJson(listUser);
-
 		resp.setCharacterEncoding("UTF-8");
 		resp.setHeader("Content-Type", "application/json");
-
 		PrintWriter printWrite = resp.getWriter();
 		printWrite.write(data);
 		printWrite.close();
-
 	}
 
 	@Override
@@ -55,7 +51,7 @@ public class UserApiController extends HttpServlet {
 		BaseResponse baseResponse = new BaseResponse();
 
 		baseResponse.setStatusCode(200);
-		baseResponse.setMessage(isSuccess ? "Update status of Task Thành Công" : " update status of task Thất bại");
+		baseResponse.setMessage(isSuccess ? "Update user Thành Công" : " update user Thất bại");
 		baseResponse.setData(isSuccess);
 
 		String json = gson.toJson(baseResponse);

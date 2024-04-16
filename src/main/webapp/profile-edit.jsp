@@ -120,16 +120,16 @@
 			<div class="container-fluid">
 				<div class="row bg-title">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						<h4 class="page-title">Thêm mới công việc</h4>
+						<h4 class="page-title">Cập nhật tiến độ công việc</h4>
 					</div>
 				</div>
 				<!-- /.row -->
 				<!-- .row -->
-				<div class="row">s
+				<div class="row">
 					<div class="col-md-2 col-12"></div>
 					<div class="col-md-8 col-xs-12">
 						<div class="white-box">
-							<form class="form-horizontal form-material" action="api/profile-edit?id_task=${taskById.id}" method="post">
+							<form class="form-horizontal form-material" id="form-save" id-task="${taskById.id}">
 								<div class="form-group">
 									<label class="col-md-12">Tên dự án</label>
 									<div class="col-md-12">
@@ -170,7 +170,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-sm-12">
-										<button type="submit" class="btn btn-success">Lưu lại</button>
+										<button type="submit" class="btn btn-success" >Lưu lại</button>
 										<a href="profile" class="btn btn-primary">Quay lại</a>
 									</div>
 								</div>
@@ -201,6 +201,8 @@
 	<script src="js/waves.js"></script>
 	<!-- Custom Theme JavaScript -->
 	<script src="js/custom.min.js"></script>
+	<!--insert file profile-edit.js -->
+	<script src="js/profile-edit.js"></script>
 </body>
-
+<!-- id="btn-save" id-task="${taskById.id}" -->
 </html>

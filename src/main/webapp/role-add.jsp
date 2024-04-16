@@ -149,7 +149,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-success">Add Role</button>
-                                        <a href="role-table.html" class="btn btn-primary">Quay lại</a>
+                                        <a href="role-table" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>
