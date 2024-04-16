@@ -17,17 +17,23 @@ $(document).ready(function() {
 		$.ajax({
 			method: "POST",
 			url: "http://localhost:8080/crmapp05/api/role-edit",
-			data: {id_role:id_role,name:name,description:description},
+			data: { id_role: id_role, name: name, description: description },
 			success: function(response) {
 				// Xử lý khi gọi API thành công
 				console.log(response);
-				alert("Dữ liệu đã được lưu thành công!");
 			},
 			error: function(xhr, status, error) {
 				// Xử lý khi gọi API gặp lỗi
 				console.log(xhr.responseText);
-				alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
 			}
-		});
+		}).done(function(result) {
+			if (result.data) {
+				alert("Cập nhật role thành công")
+			} else {
+				alert(result.message)
+			}
+		})
+
+			;
 	});
 });

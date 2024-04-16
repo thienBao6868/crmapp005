@@ -22,16 +22,22 @@ $(document).ready(function() {
 			method: "POST",
 			url: "http://localhost:8080/crmapp05/api/groupwork-edit",
 			data: {id_project:id_project,name:name,start_date:start_date,end_date:end_date},
-			success: function(response) {
-				// Xử lý khi gọi API thành công
-				console.log(response);
-				alert("Dữ liệu đã được lưu thành công!");
-			},
-			error: function(xhr, status, error) {
-				// Xử lý khi gọi API gặp lỗi
-				console.log(xhr.responseText);
-				alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
+			  success: function(response) {
+                // Xử lý khi gọi API thành công
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                // Xử lý khi gọi API gặp lỗi
+                console.log(xhr.responseText);
+            }
+        }).done(function(result){
+			if(result.data){
+				alert("Cập nhật project thành công")
+			}else{
+				alert(result.message)
 			}
-		});
+		})
+        
+        ;
 	});
 });

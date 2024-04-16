@@ -37,13 +37,19 @@ $(document).ready(function() {
             success: function(response) {
                 // Xử lý khi gọi API thành công
                 console.log(response);
-                alert("Dữ liệu đã được lưu thành công!");
             },
             error: function(xhr, status, error) {
                 // Xử lý khi gọi API gặp lỗi
                 console.log(xhr.responseText);
-                alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
             }
-        });
+        }).done(function(result){
+			if(result.data){
+				alert("Cập nhật user thành công")
+			}else{
+				alert(result.message)
+			}
+		})
+        
+        ;
     });
 });

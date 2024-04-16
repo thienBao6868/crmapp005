@@ -26,16 +26,22 @@ $(document).ready(function() {
 			method: "POST",
 			url: "http://localhost:8080/crmapp05/api/task-edit",
 			data: { id_task: id_task, id_project: id_project, tenCongViec: tenCongViec, id_user: id_user, start_date: start_date, end_date: end_date, id_status: id_status },
-			success: function(response) {
-				// Xử lý khi gọi API thành công
-				console.log(response);
-				alert("Dữ liệu đã được lưu thành công!");
-			},
-			error: function(xhr, status, error) {
-				// Xử lý khi gọi API gặp lỗi
-				console.log(xhr.responseText);
-				alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
+			  success: function(response) {
+                // Xử lý khi gọi API thành công
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                // Xử lý khi gọi API gặp lỗi
+                console.log(xhr.responseText);
+            }
+        }).done(function(result){
+			if(result.data){
+				alert("Cập nhật task thành công")
+			}else{
+				alert(result.message)
 			}
-		});
+		})
+        
+        ;
 	});
 });
