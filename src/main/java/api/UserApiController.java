@@ -37,9 +37,9 @@ public class UserApiController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		int id_user = Integer.parseInt(req.getParameter("id_user"));
-		String firstName = req.getParameter("firstname");
-		String lastName = req.getParameter("lastname");
-		String fullName = req.getParameter("fullname");
+		String firstName = req.getParameter("firstName");
+		String lastName = req.getParameter("lastName");
+		String fullName = req.getParameter("fullName");
 		String email = req.getParameter("email");
 		String passWord = req.getParameter("password");
 		String phone = req.getParameter("phone");
@@ -64,5 +64,7 @@ public class UserApiController extends HttpServlet {
 		printWrite.close();
 
 	}
+	
+	
 
 }

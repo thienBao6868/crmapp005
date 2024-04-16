@@ -134,7 +134,7 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material" action="api/user-edit?id_user=${user.id}" method="post">
+                            <form class="form-horizontal form-material" <%-- action="api/user-edit?id_user=${user.id}" method="post" --%> id="form-save" id-user="${user.id}">
                             <div class="form-group">
                                     <label class="col-md-12">First Name</label>
                                     <div class="col-md-12">
@@ -213,6 +213,8 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    	<!--insert file profile-edit.js -->
+	<script src="js/user-edit.js"></script>
 </body>
 
 </html>
