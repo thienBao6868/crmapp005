@@ -158,12 +158,12 @@
 												<td>${task.start_date}</td>
 												<td>${task.end_date}</td>
 												<td>${task.status.name}</td>
-												<td><a href="task-edit?id_task=${task.id}"
-													class="btn btn-sm btn-primary">Sửa</a> <a href="#"
-													class="btn btn-sm btn-danger">Xóa</a> <a href="#"
-													class="btn btn-sm btn-info">Xem</a></td>
+												<td>
+													<a href="task-edit?id_task=${task.id}" class="btn btn-sm btn-primary">Sửa</a>
+													 <a href="#" class="btn btn-sm btn-danger btn-xoa" id-task="${task.id}">Xóa</a>
+													 <a href="#" class="btn btn-sm btn-info">Xem</a>
+												</td>
 											</tr>
-
 										</c:forEach>
 
 
@@ -204,6 +204,9 @@
 			$('#example').DataTable();
 		});
 	</script>
+	
+	<!-- insert file task.js  -->
+	<script src="js/task.js"></script>
 </body>
 
 </html>

@@ -82,4 +82,9 @@ public class TaskService {
 		
 		return taskRepository.updateTaskById(id_task, id_project, id_user, id_status, tenCongViec, start_date, end_date) > 0;
 	}
+	
+	public boolean callDeleteTaskById (int id_task) {
+		
+		return taskRepository.deleteTaskById(id_task) > 0;
+	}
 }

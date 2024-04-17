@@ -14,10 +14,38 @@ import com.google.gson.Gson;
 import response.BaseResponse;
 import service.TaskService;
 
-@WebServlet(name="taskApiController", urlPatterns = {"/api/task-edit"})
+@WebServlet(name="taskApiController", urlPatterns = {"/api/task-edit","/api/delete-task"})
 public class TaskApiController extends HttpServlet{
+	
 	private Gson gson = new Gson();
 	private TaskService taskService = new TaskService();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String servletPath = req.getServletPath();
+		if(servletPath.equals("/api/delete-task")) {
+			int id_task = Integer.parseInt(req.getParameter("id_task"));
+			
+			boolean isSuccess = taskService.callDeleteTaskById(id_task);
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage(isSuccess ? "Delete Task Thành Công" : " Delete Task Thất bại");
+			baseResponse.setData(isSuccess);
+
+			String json = gson.toJson(baseResponse);
+
+			resp.setCharacterEncoding("UTF-8");
+			resp.setHeader("content-Type", "application/json");
+
+			PrintWriter printWrite = resp.getWriter();
+			printWrite.write(json);
+			printWrite.close();
+		}
+		
+	};
+	
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -217,5 +217,30 @@ public class TaskRepository {
 		return result;
 
 	}
+	
+	public int deleteTaskById (int id_task) {
+		int result = 0;
+
+		String deleteIdTaskOfAssignTask = "DELETE FROM assigntask WHERE assigntask.id_task = '"+id_task+"'"  ;
+		
+		
+		String deleteTaskById = "DELETE FROM task WHERE task.id  ='"+id_task+"' ";
+		
+		Connection connection = MySQLConfig.getConnection();
+		
+		try {
+			PreparedStatement deleteIdTaskOfAssignTaskStatement = connection.prepareStatement(deleteIdTaskOfAssignTask);
+			deleteIdTaskOfAssignTaskStatement.executeUpdate();
+			
+			PreparedStatement deleteTaskByIdStatement = connection.prepareStatement(deleteTaskById);
+			result = deleteTaskByIdStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("lỗi xoá task by Id : " + e.getLocalizedMessage());
+		}
+		
+		return result;
+	}
 
 }
