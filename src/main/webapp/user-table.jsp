@@ -156,7 +156,7 @@
 												<td>${user.email}</td>
 												<td>${user.role.name}</td>
 												<td><a href="user-edit?id_user=${user.id}" class="btn btn-sm btn-primary">Sửa</a>
-													<a href="#" class="btn btn-sm btn-danger">Xóa</a> <a
+													<a class="btn btn-sm btn-danger btn-xoa" id-user="${user.id}" >Xóa</a> <a
 													href="user-details?id_user=${user.id}" class="btn btn-sm btn-info">Xem</a>
 												</td>
 											</tr>
@@ -196,6 +196,9 @@
 			$('#example').DataTable();
 		});
 	</script>
+	<!-- insert file user-table.js  -->
+	<script src="js/user-table.js"></script>
+	
 </body>
 
 </html>

@@ -16,7 +16,7 @@ import emtity.User;
 import response.BaseResponse;
 import service.UserService;
 
-@WebServlet(name = "userApiController", urlPatterns = { "/api/user", "/api/user-edit" })
+@WebServlet(name = "userApiController", urlPatterns = { "/api/delete-user", "/api/user-edit" })
 public class UserApiController extends HttpServlet {
 
 	private UserService userService = new UserService();
@@ -24,13 +24,30 @@ public class UserApiController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<User> listUser = userService.CallGetAllUser();
-		String data = gson.toJson(listUser);
-		resp.setCharacterEncoding("UTF-8");
-		resp.setHeader("Content-Type", "application/json");
-		PrintWriter printWrite = resp.getWriter();
-		printWrite.write(data);
-		printWrite.close();
+		
+		String servletPath = req.getServletPath();
+		if(servletPath.equals("/api/delete-user")) {
+			int id_user = Integer.parseInt(req.getParameter("id_user"));
+			
+			boolean isSuccess = userService.callDeleteUserById(id_user);
+			BaseResponse baseResponse = new BaseResponse();
+
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage(isSuccess ? "Delete user Thành Công" : " Delete user Thất bại");
+			baseResponse.setData(isSuccess);
+
+			String json = gson.toJson(baseResponse);
+
+			resp.setCharacterEncoding("UTF-8");
+			resp.setHeader("content-Type", "application/json");
+
+			PrintWriter printWrite = resp.getWriter();
+			printWrite.write(json);
+			printWrite.close();
+			
+		}
+		
+		
 	}
 
 	@Override

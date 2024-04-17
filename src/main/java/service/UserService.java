@@ -115,4 +115,7 @@ public class UserService {
 				idRole) > 0;
 	}
 
+	public boolean callDeleteUserById(int id_user) {
+		return userRepository.deleteUserById(id_user) >0;
+	}
 }

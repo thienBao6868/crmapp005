@@ -130,4 +130,28 @@ public class UserRepository {
 		return result;
 	}
 
+	public int deleteUserById (int id_user) {
+		int result = 0;
+
+		String deleteIdUserOfAssignTask = "DELETE FROM assigntask WHERE assigntask.id_user = '"+id_user+"'"  ;
+		String deleteUserById = "DELETE FROM users WHERE users.id  ='"+id_user+"' ";
+		
+		Connection connection = MySQLConfig.getConnection();
+		
+		try {
+			PreparedStatement deleteAssignTaskStatement = connection.prepareStatement(deleteIdUserOfAssignTask);
+			deleteAssignTaskStatement.executeUpdate();
+			
+			PreparedStatement deleteUserByIdStatement = connection.prepareStatement(deleteUserById);
+			result = deleteUserByIdStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("lỗi xoá user" + e.getLocalizedMessage());
+		}
+		
+		
+		return result;
+	}
+	
 }
