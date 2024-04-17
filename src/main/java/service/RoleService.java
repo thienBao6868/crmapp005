@@ -28,4 +28,8 @@ public class RoleService {
 
 		return roleRepository.updateRoleById(id_role, name, description) > 0;
 	}
+	
+	public boolean callDeleteRoleById(int id_role) {
+		return roleRepository.deleteRoleById(id_role) >0 ;
+	}
 }

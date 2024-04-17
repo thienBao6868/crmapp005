@@ -109,4 +109,30 @@ public class RoleRepository {
 		return result;
 
 	}
+	
+	public int deleteRoleById (int id_role) {
+		
+		int result = 0;
+
+		String deleteUserByIdRole= "DELETE FROM users WHERE users.id_role = '"+id_role+"'";
+		String deleteRoleById = "DELETE FROM roles WHERE roles.id = '"+id_role+"'";
+		
+		Connection connection = MySQLConfig.getConnection();
+		
+		try {
+			PreparedStatement deleteUserByIdRoleStatement = connection.prepareStatement(deleteUserByIdRole);
+			deleteUserByIdRoleStatement.executeUpdate();
+			
+			PreparedStatement deleteRoleByIdStatement = connection.prepareStatement(deleteRoleById);
+			result = deleteRoleByIdStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("lỗi xoá role" + e.getLocalizedMessage());
+		}
+		
+		
+		return result;
+		
+	}
 }

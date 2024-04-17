@@ -14,11 +14,41 @@ import com.google.gson.Gson;
 import response.BaseResponse;
 import service.RoleService;
 
-@WebServlet(name="roleApiController", urlPatterns = {"/api/role-edit"})
+@WebServlet(name="roleApiController", urlPatterns = {"/api/role-edit","/api/delete-role"})
 public class RoleApiController extends HttpServlet {
 	
 	private RoleService roleService = new RoleService();
 	private Gson gson = new Gson();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String servletPath = req.getServletPath();
+		if(servletPath.equals("/api/delete-role")) {
+			int id_role = Integer.parseInt(req.getParameter("id_role"));
+			
+			boolean isSuccess = roleService.callDeleteRoleById(id_role);
+			BaseResponse baseResponse = new BaseResponse();
+
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage(isSuccess ? "Delete role Thành Công" : " Delete role Thất bại");
+			baseResponse.setData(isSuccess);
+
+			String json = gson.toJson(baseResponse);
+
+			resp.setCharacterEncoding("UTF-8");
+			resp.setHeader("content-Type", "application/json");
+
+			PrintWriter printWrite = resp.getWriter();
+			printWrite.write(json);
+			printWrite.close();
+			
+		}
+		
+		
+		
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

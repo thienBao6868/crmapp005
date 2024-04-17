@@ -151,12 +151,9 @@
 												<td>${role.name}</td>
 												<td>${role.description}</td>
 												<td><a href="role-edit?id_role=${role.id}" class="btn btn-sm btn-primary">Sửa</a>
-													<a href="#" class="btn btn-sm btn-danger">Xóa</a></td>
+													<a  class="btn btn-sm btn-danger btn-xoa" id-role="${role.id}">Xóa</a></td>
 											</tr>
 										</c:forEach>
-
-
-
 									</tbody>
 								</table>
 							</div>
@@ -191,6 +188,8 @@
 			$('#example').DataTable();
 		});
 	</script>
+	<!--insert file role-table.js -->
+	<script src="js/role-table.js"></script>
 </body>
 
 </html>
