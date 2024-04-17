@@ -113,4 +113,30 @@ public class ProjectRepository {
 		return result;
 	}
 	
+	public int deleteProjectById (int id_project) {
+		int result = 0;
+
+		String updateIdProjectOfTask = "UPDATE task t\n"
+				+ "SET t.id_project = NULL \n"
+				+ "WHERE t.id_project ='"+id_project+"';";
+		
+		String deleteProjectById = "DELETE FROM project WHERE project.id = '"+id_project+"';";
+		
+		Connection connection = MySQLConfig.getConnection();
+
+		try {
+			PreparedStatement updateIdProjectOfTaskStatement  = connection.prepareStatement(updateIdProjectOfTask);
+			updateIdProjectOfTaskStatement.executeUpdate();
+			PreparedStatement deleteProjectByIdStatement  = connection.prepareStatement(deleteProjectById);
+			result = deleteProjectByIdStatement.executeUpdate();
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi xoá project" + e.getLocalizedMessage());
+		}
+
+		return result;
+	}
+	
+	
 }

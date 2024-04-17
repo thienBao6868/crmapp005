@@ -1,5 +1,5 @@
 /**
- * Xử lý submit form cập nhật lại thông tin User 
+ * Xử lý xoá 
  */
 /**
  * Lê công thiên bảo 

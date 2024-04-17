@@ -55,5 +55,9 @@ public class GroupworkService {
 		
 		return projectRepository.updateProjectById(id_project, nameProject, startDate, endDate) > 0;
 	}
+	
+	public boolean callDeleteProjectById (int id_project) {
+		return projectRepository.deleteProjectById(id_project) > 0;
+	} 
 
 }

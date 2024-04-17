@@ -1,16 +1,14 @@
-/**
- * Xử lý xoá role 
- */
+
 /**
  * Lê công thiên bảo 
- * 16/04/2024 
+ * 17/04/2024 
  */
 $(document).ready(function() {
     $('.btn-xoa').click(function() {
        
 
  	// Lấy giá trị của trường input có id là "id-task"
-        var id_role = $(this).attr("id-role");
+        var id_project = $(this).attr("id-project");
        	This = $(this);
    
        
@@ -18,7 +16,7 @@ $(document).ready(function() {
         // Gọi API thông qua AJAX
         $.ajax({
             method: "GET",
-            url: "http://localhost:8080/crmapp05/api/delete-role?id_role=" + id_role,
+            url: "http://localhost:8080/crmapp05/api/delete-project?id_project="+ id_project,
             success: function(response) {
                 // Xử lý khi gọi API thành công
                 console.log(response);

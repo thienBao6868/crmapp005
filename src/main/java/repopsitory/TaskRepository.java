@@ -59,9 +59,12 @@ public class TaskRepository {
 
 		List<Task> listTask = new ArrayList<Task>();
 
-		String query = "SELECT  t.id ,t.name as task_name , p.name as project_name , u.fullname , t.start_date ,t.end_date , s.name as status_name\n"
-				+ "FROM task t \n" + "JOIN status s ON s.id = t.id_status\n" + "JOIN project p ON p.id = t.id_project\n"
-				+ "JOIN assigntask a ON a.id_task = t.id \n" + "JOIN users u ON u.id = a.id_user ;";
+		String query = "SELECT t.id ,t.name as task_name , p.name as project_name , t.start_date ,t.end_date , s.name as status_name, u.id,u.fullname \n"
+				+ "FROM task t\n"
+				+ "LEFT JOIN assigntask a ON a.id_task = t.id \n"
+				+ "LEFT JOIN project p ON p.id = t.id_project\n"
+				+ "LEFT JOIN users u ON u.id = a.id_user \n"
+				+ "JOIN status s ON s.id = t.id_status ";
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);

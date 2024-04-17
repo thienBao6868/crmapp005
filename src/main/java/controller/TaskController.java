@@ -30,12 +30,9 @@ public class TaskController extends HttpServlet {
 
 		} else if (servletPath.equals(PathName.TASK.getName())) {
 			
-			
-			
 			req.setAttribute("listTask", taskService.CallGetAllTask());
-			
-			
 			req.getRequestDispatcher("task.jsp").forward(req, resp);
+			
 		}else if (servletPath.equals(PathName.EDITTASK.getName())) {
 			
 			
@@ -45,7 +42,6 @@ public class TaskController extends HttpServlet {
 			req.setAttribute("listStatus", taskService.callGetAllStatus());
 			req.setAttribute("listProject", taskService.CallGetAllProject());
 			req.setAttribute("listUser", taskService.CallGetAllUser());
-			
 			req.getRequestDispatcher("task-edit.jsp").forward(req, resp);
 
 		}

@@ -114,13 +114,17 @@ public class RoleRepository {
 		
 		int result = 0;
 
-		String deleteUserByIdRole= "DELETE FROM users WHERE users.id_role = '"+id_role+"'";
+		//String deleteUserByIdRole= "DELETE FROM users WHERE users.id_role = '"+id_role+"'";
+		String updateIdroleOfUser = "UPDATE users \n"
+				+ "SET users.id_role  = NULL  \n"
+				+ "WHERE users.id_role  = '"+id_role+"';";
+		
 		String deleteRoleById = "DELETE FROM roles WHERE roles.id = '"+id_role+"'";
 		
 		Connection connection = MySQLConfig.getConnection();
 		
 		try {
-			PreparedStatement deleteUserByIdRoleStatement = connection.prepareStatement(deleteUserByIdRole);
+			PreparedStatement deleteUserByIdRoleStatement = connection.prepareStatement(updateIdroleOfUser);
 			deleteUserByIdRoleStatement.executeUpdate();
 			
 			PreparedStatement deleteRoleByIdStatement = connection.prepareStatement(deleteRoleById);

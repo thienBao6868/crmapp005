@@ -41,7 +41,7 @@ public class UserRepository {
 
 		List<User> listUser = new ArrayList<User>();
 		String query = "SELECT u.id , u.fullname ,u.first_name,u.last_name ,u.email , r.name as role_name\n"
-				+ "FROM users u \n" + "JOIN roles r ON r.id = u.id_role ;";
+				+ "FROM users u \n" + "LEFT JOIN roles r ON r.id = u.id_role ;";
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -134,6 +134,8 @@ public class UserRepository {
 		int result = 0;
 
 		String deleteIdUserOfAssignTask = "DELETE FROM assigntask WHERE assigntask.id_user = '"+id_user+"'"  ;
+		
+		
 		String deleteUserById = "DELETE FROM users WHERE users.id  ='"+id_user+"' ";
 		
 		Connection connection = MySQLConfig.getConnection();
@@ -147,7 +149,7 @@ public class UserRepository {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("lỗi xoá user" + e.getLocalizedMessage());
+			System.out.println("lỗi xoá user : " + e.getLocalizedMessage());
 		}
 		
 		
