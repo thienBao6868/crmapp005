@@ -25,8 +25,6 @@ public class AuthorFilter implements Filter {
 
 		HttpServletResponse resp = (HttpServletResponse) response;
 
-		// làm thế nào lấy được email
-
 		Cookie[] cookies = req.getCookies();
 		String roleUser = "";
 
@@ -40,21 +38,6 @@ public class AuthorFilter implements Filter {
 			}
 		}
 		String path = req.getServletPath();
-
-//		switch (roleUser) {
-//		case "1":
-//			if (path.equals("/add-user") || path.equals("/add-project")) {
-//				chain.doFilter(req, resp);
-//			}
-//			;
-//		case "2":
-//			if (path.equals("/add-project")) {
-//				chain.doFilter(request, response);
-//			}
-//		default:
-//			resp.sendRedirect("/login");
-//
-//		}
 		
 		if(roleUser.equals(RoleName.LEAD.getName())) {
 			if(path.equals("/add-project") || path.equals("/groupwork-add") || path.equals("/task-add")) {
