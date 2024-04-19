@@ -128,7 +128,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Dashboard</h4>
+                        <h4 class="page-title">Dashboard of ${role.name}</h4>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -144,12 +144,12 @@
                                 <h5 class="text-muted vb">CHƯA BẮT ĐẦU</h5>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-danger">23</h3>
+                                <h3 class="counter text-right m-t-15 text-danger">${listQuantityTask[0].quantity }</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span
+                                        aria-valuemin="0" aria-valuemax="100" style="width: ${percentOfTask.chuaThucHien}"> <span
                                             class="sr-only">40% Complete (success)</span> </div>
                                 </div>
                             </div>
@@ -166,12 +166,12 @@
                                 <h5 class="text-muted vb">ĐANG THỰC HIỆN</h5>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-megna">169</h3>
+                                <h3 class="counter text-right m-t-15 text-megna">${listQuantityTask[1].quantity }</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-megna" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span
+                                        aria-valuemin="0" aria-valuemax="100" style="width: ${percentOfTask.dangThucHien}"> <span
                                             class="sr-only">40% Complete (success)</span> </div>
                                 </div>
                             </div>
@@ -188,12 +188,12 @@
                                 <h5 class="text-muted vb">ĐÃ HOÀN THÀNH</h5>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-primary">157</h3>
+                                <h3 class="counter text-right m-t-15 text-primary">${listQuantityTask[2].quantity }</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span
+                                        aria-valuemin="0" aria-valuemax="100" style="width: ${percentOfTask.hoanThanh}"> <span
                                             class="sr-only">40% Complete (success)</span> </div>
                                 </div>
                             </div>

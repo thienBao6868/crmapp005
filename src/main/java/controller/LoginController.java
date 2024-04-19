@@ -54,25 +54,24 @@ public class LoginController extends HttpServlet {
 
 			// Retrieve the cookies associated with the request
 			Cookie[] cookies = req.getCookies();
-			
+
 			// Check if cookies exist
 			if (cookies != null) {
 				// Iterate over the cookies array
 				for (Cookie cookie : cookies) {
 					String name = cookie.getName();
-				
-		            if (name.equals("email") || name.equals("password") || name.equals("id_user")
-		                    || name.equals("role")) {
-		            	
-		            	// Set the value of the cookie to empty string
-		                cookie.setValue("");
-		                // Set the max age of the cookie to 0 to delete it
-		                cookie.setMaxAge(0);
-		                // Set the path of the cookie to match the path used when creating it
-		                cookie.setPath("/crmapp05"); // Assuming the cookie was set with root path
-		                // Add the cookie to the response to ensure it gets deleted
-		                resp.addCookie(cookie);
-		            }
+
+					if (name.equals("id_user") || name.equals("role")) {
+
+						// Set the value of the cookie to empty string
+						cookie.setValue("");
+						// Set the max age of the cookie to 0 to delete it
+						cookie.setMaxAge(0);
+						// Set the path of the cookie to match the path used when creating it
+						cookie.setPath("/crmapp05"); // Assuming the cookie was set with root path
+						// Add the cookie to the response to ensure it gets deleted
+						resp.addCookie(cookie);
+					}
 				}
 			} else {
 				System.out.println("No cookies found.");

@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 
 import config.MySQLConfig;
 import emtity.Project;
+import emtity.QuantityTask;
 import emtity.Status;
 import emtity.Task;
 import emtity.User;
@@ -243,4 +244,58 @@ public class TaskRepository {
 		return result;
 	}
 
+	public List<QuantityTask> getQuantityTask (int id_user, int id_role) {
+		
+		List<QuantityTask> listQuantityTask = new ArrayList<QuantityTask>(); 
+		String query = "";
+		
+		switch (id_role) {
+		case 1:
+			query = "SELECT COUNT(t.id) as totalTaskByStatus\n"
+					+ "FROM task t \n"
+					+ "GROUP BY t.id_status \n"
+					+ "ORDER BY t.id_status ASC  ";
+			break;
+		case 2:
+			query = "SELECT COUNT(t.id) as totalTaskByStatus\n"
+					+ "FROM task t \n"
+					+ "JOIN project p ON p.id = t.id_project \n"
+					+ "JOIN users u ON u.id = p.id_user \n"
+					+ "WHERE u.id = '"+id_user+"'\n"
+					+ "GROUP BY t.id_status \n"
+					+ "ORDER BY t.id_status ASC ;";
+			break;
+		case 3:
+			query = "SELECT COUNT(t.id) as totalTaskByStatus\n"
+					+ "FROM task t \n"
+					+ "JOIN assigntask a ON a.id_task = t.id \n"
+					+ "JOIN users u ON u.id = a.id_user \n"
+					+ "WHERE u.id = '"+id_user+"'\n"
+					+ "GROUP BY t.id_status \n"
+					+ "ORDER BY t.id_status ASC ;";
+			break;
+		default:
+			break;
+		}
+		
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				QuantityTask quantityTask = new QuantityTask();
+				quantityTask.setQuantity(resultSet.getInt("totalTaskByStatus"));
+				listQuantityTask.add(quantityTask);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error Kết nối database lấy quantity Task  : " + e.getLocalizedMessage());
+		}
+
+		return listQuantityTask;
+		
+	}
 }
