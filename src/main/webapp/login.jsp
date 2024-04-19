@@ -43,7 +43,7 @@ request.getAttribute("password");
 								class="form-control" name="password" value="${password}">
 						</div>
 						<div class="form-group">
-							<input type="checkbox" name="remember"> Lưu mật khẩu
+							<input type="checkbox" name="remember" value="true" checked > Lưu mật khẩu
 						</div>
 						<button type="submit" class="btn btn-primary">Đăng nhập</button>
 						<c:if test="${ms != null}">
