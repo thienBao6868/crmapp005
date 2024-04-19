@@ -61,7 +61,7 @@ public class LoginController extends HttpServlet {
 				for (Cookie cookie : cookies) {
 					String name = cookie.getName();
 
-					if (name.equals("id_user") || name.equals("role")) {
+					if (name.equals("id_user") || name.equals("role") || name.equals("isLogin")) {
 
 						// Set the value of the cookie to empty string
 						cookie.setValue("");
@@ -138,6 +138,10 @@ public class LoginController extends HttpServlet {
 				Cookie cookieIdUser = new Cookie("id_user", String.valueOf(id_user));
 				cookieIdUser.setMaxAge(24 * 60 * 60);
 				resp.addCookie(cookieIdUser);
+				
+				Cookie cookieLogin = new Cookie("isLogin", "true");
+				cookieLogin.setMaxAge(24 * 60 * 60);
+				resp.addCookie(cookieLogin);
 
 				if (remember != null) {
 					// Create a new cookie
