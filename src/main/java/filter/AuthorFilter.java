@@ -43,13 +43,13 @@ public class AuthorFilter implements Filter {
 			if(path.equals("/add-project") || path.equals("/groupwork-add") || path.equals("/task-add")) {
 				chain.doFilter(request, response);
 			}else {
-				resp.sendRedirect(req.getContextPath()+"/login");
+				resp.sendRedirect(req.getContextPath()+"/404");
 			}
 			
 		}else if(roleUser.equals(RoleName.ADMIN.getName()) ) {
 			chain.doFilter(request, response);
 		}else {
-			resp.sendRedirect(req.getContextPath()+"/login");
+			resp.sendRedirect(req.getContextPath()+"/404");
 		}
 
 	}

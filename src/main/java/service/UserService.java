@@ -31,6 +31,7 @@ public class UserService {
 
 	public int callCreateUser(String firstName, String lastName, String fullName, String email, String passWord,
 			String phone, int idRole) {
+		
 		return userRepository.createUser(firstName, lastName, fullName, email, passWord, phone, idRole);
 	}
 
@@ -46,9 +47,9 @@ public class UserService {
 		return statusRepository.getAllStatus();
 	}
 
-	public List<Task> callGetAllTaskByUser(int id_user) {
+	public List<Task> callGetAllTaskByUser(int id_user, int id_role ) {
 
-		List<Task> listTask = taskRepository.getAllTaskByUser(id_user);
+		List<Task> listTask = taskRepository.getAllTaskByUser(id_user, id_role);
 		for (int i = 0; i < listTask.size(); i++) {
 			listTask.get(i).setStart_date(utility.convertTimestampToDateTime(listTask.get(i).getStart_date()));
 			listTask.get(i).setEnd_date(utility.convertTimestampToDateTime(listTask.get(i).getEnd_date()));
@@ -56,7 +57,7 @@ public class UserService {
 		return listTask;
 	}
 
-	public PercentOfTask getPercentOfTask(int id_user) {
+	public PercentOfTask getPercentOfTask(int id_user, int id_role ) {
 		PercentOfTask percent = new PercentOfTask();
 		int totalTaskChuaThucHien = 0;
 		int totalTaskDangThucHien = 0;
@@ -66,7 +67,7 @@ public class UserService {
 		float percentOfTaskHoanThanh;
 		float percentOfTaskChuaThucHien;
 
-		List<Task> listTask = taskRepository.getAllTaskByUser(id_user);
+		List<Task> listTask = taskRepository.getAllTaskByUser(id_user, id_role);
 
 		int totalTask = listTask.size(); // 4 task
 

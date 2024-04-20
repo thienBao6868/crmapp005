@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,10 +36,26 @@ public class UserController extends HttpServlet {
 		}else if (servletPath.equals(PathName.DETAILUSER.getName())) {
 			int id_user = Integer.parseInt(req.getParameter("id_user")) ;
 			
-			req.setAttribute("percentOfTask",userService.getPercentOfTask(id_user)); 
+			int id_role = 0;
+			// Retrieve the cookies associated with the request
+			Cookie[] cookies = req.getCookies();
+
+			// Check if cookies exist
+			if (cookies != null) {
+				// Iterate over the cookies array
+				for (Cookie cookie : cookies) {
+					String name = cookie.getName();
+					String value = cookie.getValue();
+					if (name.equals("role")) {
+						id_role=Integer.parseInt(value) ;
+					}
+				}
+			}
+			
+			req.setAttribute("percentOfTask",userService.getPercentOfTask(id_user, id_role)); 
 			req.setAttribute("user", userService.callGetUserById(id_user));
 			req.setAttribute("listStatus",userService.callGetAllStatus());
-			req.setAttribute("listTask", userService.callGetAllTaskByUser(id_user));
+			req.setAttribute("listTask", userService.callGetAllTaskByUser(id_user, id_role));
 			req.getRequestDispatcher("user-detail.jsp").forward(req, resp);
 		}else if (servletPath.equals(PathName.EDITUSER.getName())) {
 			
