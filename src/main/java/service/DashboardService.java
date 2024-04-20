@@ -30,21 +30,24 @@ public class DashboardService {
 		float percentOfTaskDangThucHien;
 		float percentOfTaskHoanThanh;
 		float percentOfTaskChuaThucHien;
+		
+		if(listQuantityTask.get(0) != null ) {
+			totalTaskChuaThucHien = listQuantityTask.get(0).getQuantity();
+		}
+		if(listQuantityTask.get(1) != null ) {
+			totalTaskDangThucHien = listQuantityTask.get(1).getQuantity();
+		}
+		if(listQuantityTask.get(2) != null ) {
+			totalTaskHoanThanh = listQuantityTask.get(2).getQuantity();
+		}
 
-		int totalTask = listQuantityTask.get(0).getQuantity() + listQuantityTask.get(1).getQuantity()
-				+ listQuantityTask.get(2).getQuantity();
+		int totalTask = totalTaskChuaThucHien + totalTaskDangThucHien + totalTaskHoanThanh ;
 
 		if (totalTask == 0) {
 			percent.setDangThucHien("0");
 			percent.setChuaThucHien("0");
 			percent.setHoanThanh("0");
-		} else {
-
-			totalTaskChuaThucHien = listQuantityTask.get(0).getQuantity();
-			totalTaskDangThucHien = listQuantityTask.get(1).getQuantity();
-			totalTaskHoanThanh = listQuantityTask.get(2).getQuantity();
-
-		}
+		} 
 
 		// Để ý khi sử dụng kiểu dữ liệu tính toán
 		percentOfTaskChuaThucHien = ((float) totalTaskChuaThucHien / (float) totalTask) * 100;

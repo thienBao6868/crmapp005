@@ -61,10 +61,8 @@ public class TaskRepository {
 		List<Task> listTask = new ArrayList<Task>();
 
 		String query = "SELECT t.id ,t.name as task_name , p.name as project_name , t.start_date ,t.end_date , s.name as status_name, u.id,u.fullname \n"
-				+ "FROM task t\n"
-				+ "LEFT JOIN assigntask a ON a.id_task = t.id \n"
-				+ "LEFT JOIN project p ON p.id = t.id_project\n"
-				+ "LEFT JOIN users u ON u.id = a.id_user \n"
+				+ "FROM task t\n" + "LEFT JOIN assigntask a ON a.id_task = t.id \n"
+				+ "LEFT JOIN project p ON p.id = t.id_project\n" + "LEFT JOIN users u ON u.id = a.id_user \n"
 				+ "JOIN status s ON s.id = t.id_status ";
 		Connection connection = MySQLConfig.getConnection();
 		try {
@@ -102,14 +100,41 @@ public class TaskRepository {
 		return listTask;
 	}
 
-	public List<Task> getAllTaskByUser(int id_user) {
+	public List<Task> getAllTaskByUser(int id_user, int id_role) {
 
 		List<Task> listTask = new ArrayList<Task>();
 
-		String query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name\n"
-				+ "FROM task t \n" + "JOIN status s ON s.id = t.id_status\n" + "JOIN project p ON p.id = t.id_project\n"
-				+ "JOIN assigntask a ON a.id_task = t.id \n" + "JOIN users u ON u.id = a.id_user \n" + "WHERE u.id= '"
-				+ id_user + "'";
+		String query = "";
+
+		switch (id_role) {
+		case 1:
+			query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name\n"
+					+ "FROM task t \n"
+					+ "LEFT JOIN status s ON s.id = t.id_status\n"
+					+ "LEFT JOIN project p ON p.id = t.id_project\n"
+					+ "LEFT JOIN assigntask a ON a.id_task = t.id \n"
+					+ "LEFT JOIN users u ON u.id = a.id_user ";
+			break;
+		case 2:
+			query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name\n"
+					+ "FROM task t \n"
+					+ "JOIN status s ON s.id = t.id_status\n"
+					+ "JOIN project p ON p.id = t.id_project\n"
+					+ "JOIN users u ON u.id = p.id_user \n"
+					+ "WHERE u.id = '"+id_user+"'";
+			break;
+		case 3:
+			query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name\n"
+					+ "FROM task t \n"
+					+ "LEFT JOIN status s ON s.id = t.id_status\n"
+					+ "LEFT JOIN project p ON p.id = t.id_project\n"
+					+ "LEFT JOIN assigntask a ON a.id_task = t.id \n"
+					+ "WHERE a.id_user = '"+id_user+"'";
+			break;
+		default:
+			break;
+		}
+
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -204,8 +229,8 @@ public class TaskRepository {
 
 		String query = "UPDATE task t\n" + "JOIN assigntask a ON a.id_task = t.id\n" + "SET t.id_status = '" + id_status
 				+ "' , a.id_status = '" + id_status + "', t.name ='" + tenCongViec + "' , t.start_date = '" + start_date
-				+ "' , t.end_date = '" + end_date + "' , t.id_project = '" + id_project + "', a.id_user='"+id_user+"'\n" + "WHERE t.id = '"
-				+ id_task + "';";
+				+ "' , t.end_date = '" + end_date + "' , t.id_project = '" + id_project + "', a.id_user='" + id_user
+				+ "'\n" + "WHERE t.id = '" + id_task + "';";
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -218,66 +243,82 @@ public class TaskRepository {
 		return result;
 
 	}
-	
-	public int deleteTaskById (int id_task) {
+
+	public int deleteTaskById(int id_task) {
 		int result = 0;
 
-		String deleteIdTaskOfAssignTask = "DELETE FROM assigntask WHERE assigntask.id_task = '"+id_task+"'"  ;
-		
-		
-		String deleteTaskById = "DELETE FROM task WHERE task.id  ='"+id_task+"' ";
-		
+		String deleteIdTaskOfAssignTask = "DELETE FROM assigntask WHERE assigntask.id_task = '" + id_task + "'";
+
+		String deleteTaskById = "DELETE FROM task WHERE task.id  ='" + id_task + "' ";
+
 		Connection connection = MySQLConfig.getConnection();
-		
+
 		try {
 			PreparedStatement deleteIdTaskOfAssignTaskStatement = connection.prepareStatement(deleteIdTaskOfAssignTask);
 			deleteIdTaskOfAssignTaskStatement.executeUpdate();
-			
+
 			PreparedStatement deleteTaskByIdStatement = connection.prepareStatement(deleteTaskById);
 			result = deleteTaskByIdStatement.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("lỗi xoá task by Id : " + e.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
 
-	public List<QuantityTask> getQuantityTask (int id_user, int id_role) {
-		
-		List<QuantityTask> listQuantityTask = new ArrayList<QuantityTask>(); 
+	public List<QuantityTask> getQuantityTask(int id_user, int id_role) {
+
+		List<QuantityTask> listQuantityTask = new ArrayList<QuantityTask>();
 		String query = "";
-		
 		switch (id_role) {
 		case 1:
-			query = "SELECT COUNT(t.id) as totalTaskByStatus\n"
-					+ "FROM task t \n"
-					+ "GROUP BY t.id_status \n"
-					+ "ORDER BY t.id_status ASC  ";
+			query = "SELECT IFNULL(result.totalTaskByStatus, 0) AS totalTaskByStatus\n"
+					+ "FROM (\n"
+					+ "    SELECT COUNT(t.id) AS totalTaskByStatus, t.id_status\n"
+					+ "    FROM (\n"
+					+ "        SELECT id_status\n"
+					+ "        FROM task\n"
+					+ "        GROUP BY id_status\n"
+					+ "        LIMIT 3\n"
+					+ "    ) AS all_statuses\n"
+					+ "    LEFT JOIN task t ON t.id_status = all_statuses.id_status\n"
+					+ "    GROUP BY t.id_status \n"
+					+ "    ORDER BY t.id_status ASC\n"
+					+ ") AS result; ";
 			break;
 		case 2:
-			query = "SELECT COUNT(t.id) as totalTaskByStatus\n"
+			query = "SELECT COALESCE(COUNT(t.id), 0) as totalTaskByStatus\n"
 					+ "FROM task t \n"
 					+ "JOIN project p ON p.id = t.id_project \n"
 					+ "JOIN users u ON u.id = p.id_user \n"
 					+ "WHERE u.id = '"+id_user+"'\n"
 					+ "GROUP BY t.id_status \n"
-					+ "ORDER BY t.id_status ASC ;";
+					+ "ORDER BY t.id_status ASC;";
 			break;
 		case 3:
-			query = "SELECT COUNT(t.id) as totalTaskByStatus\n"
-					+ "FROM task t \n"
-					+ "JOIN assigntask a ON a.id_task = t.id \n"
-					+ "JOIN users u ON u.id = a.id_user \n"
-					+ "WHERE u.id = '"+id_user+"'\n"
-					+ "GROUP BY t.id_status \n"
-					+ "ORDER BY t.id_status ASC ;";
+			query = "SELECT IFNULL(result.totalTaskByStatus, 0) AS totalTaskByStatus\n"
+					+ "FROM (\n"
+					+ "    SELECT COUNT(t.id) AS totalTaskByStatus, t.id_status\n"
+					+ "    FROM task t \n"
+					+ "    LEFT JOIN assigntask a ON a.id_task = t.id \n"
+					+ "    LEFT JOIN users u ON u.id = a.id_user \n"
+					+ "    WHERE u.id = '"+id_user+"'\n"
+					+ "    GROUP BY t.id_status \n"
+					+ "    ORDER BY t.id_status ASC\n"
+					+ ") AS result\n"
+					+ "RIGHT JOIN (\n"
+					+ "    SELECT id_status\n"
+					+ "    FROM task\n"
+					+ "    GROUP BY id_status\n"
+					+ "    LIMIT 3\n"
+					+ ") AS all_statuses ON result.id_status = all_statuses.id_status;";
 			break;
 		default:
 			break;
 		}
-		
+
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -296,6 +337,6 @@ public class TaskRepository {
 		}
 
 		return listQuantityTask;
-		
+
 	}
 }

@@ -120,7 +120,7 @@
 			<div class="container-fluid">
 				<div class="row bg-title">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						<h4 class="page-title">Chi tiết thành viên</h4>
+						<h4 class="page-title">Profile thành viên với role ${role.name}</h4>
 					</div>
 				</div>
 				<!-- /.row -->
@@ -220,7 +220,7 @@
 				<br />
 				<!-- /.row -->
 				<!-- BEGIN DANH SÁCH CÔNG VIỆC -->
-				<h4>DANH SÁCH CÔNG VIỆC</h4>
+				<h4>DANH SÁCH TẤT CẢ CÔNG VIỆC MÀ ${role.name} CÓ THỂ QUẢN LÝ  </h4>
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="white-box">

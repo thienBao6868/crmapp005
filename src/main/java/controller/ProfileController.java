@@ -23,6 +23,7 @@ public class ProfileController extends HttpServlet {
 		String servletPath = req.getServletPath();
 		if (servletPath.equals(PathName.PROFILE.getName())) {
 			int id_user = 0;
+			int id_role = 0;
 			// Retrieve the cookies associated with the request
 			Cookie[] cookies = req.getCookies();
 
@@ -35,10 +36,15 @@ public class ProfileController extends HttpServlet {
 					if (name.equals("id_user")) {
 						id_user = Integer.parseInt(value);
 					}
+					if (name.equals("role")) {
+						id_role=Integer.parseInt(value) ;
+					}
 				}
 			}
-			req.setAttribute("percentOfTask",profileService.getPercentOfTask(id_user)); 
-			req.setAttribute("listTaskByUser", profileService.callGetAllTaskByUser(id_user));
+			
+			req.setAttribute("role", profileService.callGetRoleById(id_role));
+			req.setAttribute("percentOfTask",profileService.getPercentOfTask(id_user, id_role)); 
+			req.setAttribute("listTaskByUser", profileService.callGetAllTaskByUser(id_user,id_role));
 			req.setAttribute("user", profileService.callGetUserById(id_user));
 			req.getRequestDispatcher("profile.jsp").forward(req, resp);
 

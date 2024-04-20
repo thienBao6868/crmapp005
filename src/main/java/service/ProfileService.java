@@ -3,9 +3,11 @@ package service;
 import java.util.List;
 
 import emtity.PercentOfTask;
+import emtity.Role;
 import emtity.Status;
 import emtity.Task;
 import emtity.User;
+import repopsitory.RoleRepository;
 import repopsitory.StatusRepository;
 import repopsitory.TaskRepository;
 import repopsitory.UserRepository;
@@ -16,11 +18,12 @@ public class ProfileService {
 	private TaskRepository taskRepository = new TaskRepository();
 	private UserRepository userRepository = new UserRepository();
 	private StatusRepository statusRepository = new StatusRepository();
+	private RoleRepository roleRepository = new RoleRepository();
 	private Utility utility = new Utility();
 
-	public List<Task> callGetAllTaskByUser(int id_user) {
+	public List<Task> callGetAllTaskByUser(int id_user, int id_role) {
 
-		List<Task> listTask = taskRepository.getAllTaskByUser(id_user);
+		List<Task> listTask = taskRepository.getAllTaskByUser(id_user, id_role);
 		for (int i = 0; i < listTask.size(); i++) {
 			listTask.get(i).setStart_date(utility.convertTimestampToDateTime(listTask.get(i).getStart_date()));
 			listTask.get(i).setEnd_date(utility.convertTimestampToDateTime(listTask.get(i).getEnd_date()));
@@ -29,7 +32,7 @@ public class ProfileService {
 
 	}
 
-	public PercentOfTask getPercentOfTask(int id_user) {
+	public PercentOfTask getPercentOfTask(int id_user, int id_role) {
 		PercentOfTask percent = new PercentOfTask();
 		int totalTaskChuaThucHien = 0;
 		int totalTaskDangThucHien = 0;
@@ -41,7 +44,7 @@ public class ProfileService {
 		float percentOfTaskHoanThanh;
 		float percentOfTaskChuaThucHien;
 		
-		List<Task> listTask = taskRepository.getAllTaskByUser(id_user);
+		List<Task> listTask = taskRepository.getAllTaskByUser(id_user,id_role);
 
 		int totalTask = listTask.size(); // 4 task 
 
@@ -107,5 +110,9 @@ public class ProfileService {
 	
 	public boolean callUpdateStatusOfTaskd(int id_task,int id_status) {
 		return taskRepository.updateStatusOfTaskd(id_task, id_status) > 0;
+	}
+	
+	public Role callGetRoleById(int id_role) {
+		return roleRepository.getRoleById(id_role);
 	}
 }
