@@ -13,7 +13,7 @@ import javax.servlet.http.Cookie;
 import service.DashboardService;
 
 
-@WebServlet(name="dashboardController",urlPatterns = {"/dashboard"})
+@WebServlet(name="dashboardController",urlPatterns = {"/dashboard","/"})
 public class DashboardController extends HttpServlet{
 	
 	private DashboardService dashboardService = new DashboardService();

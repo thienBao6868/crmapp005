@@ -13,8 +13,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import enumdata.PathName;
-
 
 
 @WebFilter(urlPatterns = { "/*" })
@@ -23,7 +21,7 @@ public class NotFoundPageFilter implements Filter{
             "/add-user", "/users", "/user-details", "/user-edit", "/role-table",
             "/role-add", "/role-edit", "/groupwork", "/groupwork-add", "/groupwork-details",
             "/groupwork-edit", "/task-add", "/task", "/task-edit", "/profile",
-            "/profile-edit", "/login", "/logout","","/404","/dashboard","/blank"
+            "/profile-edit", "/login", "/logout","/","/404","/dashboard","/blank"
     );
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -42,9 +40,7 @@ public class NotFoundPageFilter implements Filter{
              resp.sendRedirect(req.getContextPath() + "/404");
             return;
         }
-
         chain.doFilter(request, response);
-		
 	}
 
 }
