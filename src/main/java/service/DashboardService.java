@@ -30,24 +30,46 @@ public class DashboardService {
 		float percentOfTaskDangThucHien;
 		float percentOfTaskHoanThanh;
 		float percentOfTaskChuaThucHien;
-		
-		if(listQuantityTask.get(0) != null ) {
-			totalTaskChuaThucHien = listQuantityTask.get(0).getQuantity();
-		}
-		if(listQuantityTask.get(1) != null ) {
-			totalTaskDangThucHien = listQuantityTask.get(1).getQuantity();
-		}
-		if(listQuantityTask.get(2) != null ) {
-			totalTaskHoanThanh = listQuantityTask.get(2).getQuantity();
+
+		switch (listQuantityTask.size()) {
+		case 1:
+			if (listQuantityTask.get(0) != null) {
+				totalTaskChuaThucHien = listQuantityTask.get(0).getQuantity();
+			}
+			break;
+		case 2:
+			if (listQuantityTask.get(0) != null) {
+				totalTaskChuaThucHien = listQuantityTask.get(0).getQuantity();
+			}
+			if (listQuantityTask.get(1) != null) {
+				totalTaskDangThucHien = listQuantityTask.get(1).getQuantity();
+			}
+			break;
+		case 3:
+			if (listQuantityTask.get(0) != null) {
+				totalTaskChuaThucHien = listQuantityTask.get(0).getQuantity();
+			}
+			if (listQuantityTask.get(1) != null) {
+				totalTaskDangThucHien = listQuantityTask.get(1).getQuantity();
+			}
+			if (listQuantityTask.get(2) != null) {
+				totalTaskHoanThanh = listQuantityTask.get(2).getQuantity();
+			}
+			break;
+
+		default:
+			break;
 		}
 
-		int totalTask = totalTaskChuaThucHien + totalTaskDangThucHien + totalTaskHoanThanh ;
+		
+
+		int totalTask = totalTaskChuaThucHien + totalTaskDangThucHien + totalTaskHoanThanh;
 
 		if (totalTask == 0) {
 			percent.setDangThucHien("0");
 			percent.setChuaThucHien("0");
 			percent.setHoanThanh("0");
-		} 
+		}
 
 		// Để ý khi sử dụng kiểu dữ liệu tính toán
 		percentOfTaskChuaThucHien = ((float) totalTaskChuaThucHien / (float) totalTask) * 100;
@@ -65,7 +87,7 @@ public class DashboardService {
 
 		return percent;
 	}
-	
+
 	public Role callGetRoleById(int id_role) {
 		return roleRepository.getRoleById(id_role);
 	}

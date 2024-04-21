@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 
-import javax.annotation.security.RolesAllowed;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +13,7 @@ import javax.servlet.http.Cookie;
 import service.DashboardService;
 
 
-@WebServlet(name="dashboardController",urlPatterns = {"/dashboard","/"})
+@WebServlet(name="dashboardController",urlPatterns = {"/dashboard",""})
 public class DashboardController extends HttpServlet{
 	
 	private DashboardService dashboardService = new DashboardService();
@@ -22,9 +22,8 @@ public class DashboardController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String servletPath = req.getServletPath();
-		if(servletPath.equals("/")) {
-			req.getRequestDispatcher("index.jsp").forward(req, resp);
-		}else if(servletPath.equals("/dashboard")) {
+		
+			if(servletPath.equals("/dashboard") || servletPath.equals("") ) {
 				
 				int id_user = 0;
 				int id_role = 0;

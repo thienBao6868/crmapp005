@@ -230,7 +230,7 @@
 								<div class="message-center">
 									<c:forEach items="${listTask}" var="task">
 										<c:if test="${status.id == task.status.id}">
-											<a href="#">
+											<a href="task-detail?id_task=${task.id}">
 												<div class="mail-contnet">
 													<h5>${task.name}</h5>
 													<span class="mail-desc"></span> <span class="time">Bắt

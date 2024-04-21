@@ -7,15 +7,13 @@
  */
 $(document).ready(function() {
     $('.btn-xoa').click(function() {
-       
-
  	// Lấy giá trị của trường input có id là "id-task"
         var id_user = $(this).attr("id-user");
+        var id_role = $(this).attr("id-role");
        	This = $(this);
-   
-       
-
-        // Gọi API thông qua AJAX
+  
+		if(id_role == 1){
+			 // Gọi API thông qua AJAX
         $.ajax({
             method: "GET",
             url: "http://localhost:8080/crmapp05/api/delete-user?id_user=" + id_user,
@@ -29,12 +27,14 @@ $(document).ready(function() {
             }
         }).done(function(result){
 			if(result.data){
-				This.closest('tr').remove()
+				This.closest('tr').remove();
 			}else{
-				alert(result.message)
+				alert(result.message);
 			}
-		})
-        
-        ;
+		});
+		}else{
+			window.location.href = "404.jsp";
+		}
+       
     });
 });

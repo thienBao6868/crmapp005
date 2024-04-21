@@ -26,6 +26,9 @@ public class ProfileApiController extends HttpServlet {
 		int id_task = Integer.parseInt(req.getParameter("idTask")) ;
 		int id_status = Integer.parseInt(req.getParameter("idStatus"));
 		
+		System.out.println(id_task);
+		System.out.println(id_status);
+		
 		boolean isSuccess = profileService.callUpdateStatusOfTaskd(id_task, id_status);
 		
 		BaseResponse baseResponse = new BaseResponse();

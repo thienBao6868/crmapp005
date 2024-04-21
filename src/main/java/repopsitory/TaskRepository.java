@@ -101,7 +101,8 @@ public class TaskRepository {
 	}
 
 	public List<Task> getAllTaskByUser(int id_user, int id_role) {
-
+		
+		System.out.println(id_role);
 		List<Task> listTask = new ArrayList<Task>();
 
 		String query = "";
@@ -171,9 +172,12 @@ public class TaskRepository {
 	public Task getTaskById(int id_task) {
 
 		Task task = new Task();
-		String query = "  SELECT t.id as id_task, t.name, t.start_date, t.end_date, p.id as id_project, p.name as name_project, s.id as id_status , s.name as name_status\n"
-				+ " FROM task t \n" + " JOIN project p ON p.id = t.id_project\n"
-				+ " JOIN status s ON s.id = t.id_status\n" + "WHERE t.id = '" + id_task + "';";
+		String query = "  SELECT t.id as id_task, t.name, t.start_date, t.end_date, t.id_project, p.name as name_project, s.id as id_status , s.name as name_status, u.id as id_user, u.fullname\n"
+				+ " FROM task t \n"
+				+ " JOIN project p ON p.id = t.id_project\n"
+				+ " JOIN status s ON s.id = t.id_status\n"
+				+ " JOIN users u ON u.id = p.id_user\n"
+				+ " WHERE t.id = '"+id_task+"';";
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -183,12 +187,16 @@ public class TaskRepository {
 
 				Project project = new Project();
 				Status status = new Status();
+				User user = new User();
 
 				project.setId(resultSet.getInt("id_project"));
 				project.setName(resultSet.getString("name_project"));
 
 				status.setId(resultSet.getInt("id_status"));
 				status.setName(resultSet.getString("name_status"));
+				
+				user.setId(resultSet.getInt("id_user"));
+				user.setFullname(resultSet.getString("fullname"));
 
 				task.setId(resultSet.getInt("id_task"));
 				task.setName(resultSet.getString("name"));
@@ -196,6 +204,7 @@ public class TaskRepository {
 				task.setEnd_date(resultSet.getString("end_date"));
 				task.setProject(project);
 				task.setStatus(status);
+				task.setUser(user);
 
 			}
 

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import enumdata.RoleName;
 
-@WebFilter(filterName = "authorFilter", urlPatterns = { "/add-user","/add-project","/role-add","/groupwork-add","/task-add" })
+@WebFilter(filterName = "authorFilter", urlPatterns = { "/add-user","/user-edit","/user-details","/add-project","/role-add","/role-edit","/groupwork-add","/task-add" })
 public class AuthorFilter implements Filter {
 
 	@Override

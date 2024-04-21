@@ -35,6 +35,10 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- insert file user-table.js  -->
+ 	<script src="js/user-table.js"></script> 
 </head>
 
 <body>
@@ -79,7 +83,7 @@
 								<li><a href="profile">Thông tin cá nhân</a></li>
 								<li><a href="#">Thống kê công việc</a></li>
 								<li class="divider"></li>
-								  <li><a href="logout">Đăng xuất</a></li>
+								<li><a href="logout">Đăng xuất</a></li>
 							</ul>
 						</div>
 					</li>
@@ -126,8 +130,7 @@
 						<h4 class="page-title">Danh sách thành viên</h4>
 					</div>
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-						<a href="add-user" class="btn btn-sm btn-success">Thêm
-							mới</a>
+						<a href="add-user" class="btn btn-sm btn-success">Thêm mới</a>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -155,10 +158,15 @@
 												<td>${user.lastName}</td>
 												<td>${user.email}</td>
 												<td>${user.role.name}</td>
-												<td><a href="user-edit?id_user=${user.id}" class="btn btn-sm btn-primary">Sửa</a>
-													<a class="btn btn-sm btn-danger btn-xoa" id-user="${user.id}" >Xóa</a> <a
-													href="user-details?id_user=${user.id}" class="btn btn-sm btn-info">Xem</a>
-												</td>
+
+												<td><a href="user-edit?id_user=${user.id}"
+													class="btn btn-sm btn-primary">Sửa</a> <a
+													class="btn btn-sm btn-danger btn-xoa" id-user="${user.id}" id-role="${idRole}">Xóa</a>
+													<a href="user-details?id_user=${user.id}&id_role=${user.role.id}"
+													class="btn btn-sm btn-info">Xem</a></td>
+
+
+
 											</tr>
 
 										</c:forEach>
@@ -196,9 +204,10 @@
 			$('#example').DataTable();
 		});
 	</script>
-	<!-- insert file user-table.js  -->
-	<script src="js/user-table.js"></script>
+
 	
+
+
 </body>
 
 </html>

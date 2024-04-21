@@ -27,14 +27,6 @@ public class UserController extends HttpServlet {
 			
 			req.getRequestDispatcher("user-add.jsp").forward(req, resp);
 		}else if (servletPath.equals(PathName.USERS.getName())){
-			// Test lấy danh sách User. 
-			//System.out.println(userService.CallGetAllUser());
-			
-			req.setAttribute("listUser", userService.CallGetAllUser());
-			req.getRequestDispatcher("user-table.jsp").forward(req, resp);
-			
-		}else if (servletPath.equals(PathName.DETAILUSER.getName())) {
-			int id_user = Integer.parseInt(req.getParameter("id_user")) ;
 			
 			int id_role = 0;
 			// Retrieve the cookies associated with the request
@@ -52,10 +44,21 @@ public class UserController extends HttpServlet {
 				}
 			}
 			
+			req.setAttribute("idRole",id_role);
+			req.setAttribute("listUser", userService.CallGetAllUser());
+			req.getRequestDispatcher("user-table.jsp").forward(req, resp);
+			
+		}else if (servletPath.equals(PathName.DETAILUSER.getName())) {
+			int id_user = Integer.parseInt(req.getParameter("id_user")) ;
+			
+			int id_role = Integer.parseInt(req.getParameter("id_role"));
+			
 			req.setAttribute("percentOfTask",userService.getPercentOfTask(id_user, id_role)); 
 			req.setAttribute("user", userService.callGetUserById(id_user));
 			req.setAttribute("listStatus",userService.callGetAllStatus());
+			
 			req.setAttribute("listTask", userService.callGetAllTaskByUser(id_user, id_role));
+			
 			req.getRequestDispatcher("user-detail.jsp").forward(req, resp);
 		}else if (servletPath.equals(PathName.EDITUSER.getName())) {
 			

@@ -151,7 +151,7 @@
 												<td>${role.name}</td>
 												<td>${role.description}</td>
 												<td><a href="role-edit?id_role=${role.id}" class="btn btn-sm btn-primary">Sửa</a>
-													<a  class="btn btn-sm btn-danger btn-xoa" id-role="${role.id}">Xóa</a></td>
+													<a  class="btn btn-sm btn-danger btn-xoa" id-role="${role.id}" check-role="${idRole}">Xóa</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -189,7 +189,7 @@
 		});
 	</script>
 	<!--insert file role-table.js -->
-	<script src="js/role-table.js"></script>
+	<script  src="js/role-table.js"></script>
 </body>
 
 </html>

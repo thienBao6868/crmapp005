@@ -16,6 +16,7 @@ public enum PathName {
 	ADDTASK("/task-add"),
 	TASK("/task"),
 	EDITTASK("/task-edit"),
+	TASKDETAIL("/task-detail"),
 	PROFILE("/profile"),
 	EDITPROFILE("/profile-edit"),
 	LOGIN("/login"),

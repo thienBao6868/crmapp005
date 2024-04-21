@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import enumdata.PathName;
 import service.TaskService;
 
-@WebServlet(name = "taskController", urlPatterns = { "/task-add", "/task","/task-edit" })
+@WebServlet(name = "taskController", urlPatterns = { "/task-add", "/task","/task-edit","/task-detail" })
 public class TaskController extends HttpServlet {
 
 	private TaskService taskService = new TaskService();
@@ -44,6 +44,14 @@ public class TaskController extends HttpServlet {
 			req.setAttribute("listUser", taskService.CallGetAllUser());
 			req.getRequestDispatcher("task-edit.jsp").forward(req, resp);
 
+		}else if (servletPath.equals(PathName.TASKDETAIL.getName())) {
+			
+			int idTask = Integer.parseInt(req.getParameter("id_task"));
+			
+			req.setAttribute("userDoTask", taskService.callGetUserDoTask(idTask));
+			req.setAttribute("task",taskService.callGetTaskById(idTask));
+			
+			req.getRequestDispatcher("task-detail.jsp").forward(req, resp);
 		}
 
 		

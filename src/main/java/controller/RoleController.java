@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,25 @@ public class RoleController extends HttpServlet {
 		
 		if(servletPath.equals(PathName.ROLES.getName())) {
 			
+			int id_role = 0;
+			// Retrieve the cookies associated with the request
+			Cookie[] cookies = req.getCookies();
+
+			// Check if cookies exist
+			if (cookies != null) {
+				// Iterate over the cookies array
+				for (Cookie cookie : cookies) {
+					String name = cookie.getName();
+					String value = cookie.getValue();
+					if (name.equals("role")) {
+						id_role=Integer.parseInt(value) ;
+					}
+				}
+			}
+			
+			req.setAttribute("idRole",id_role);
+			
+			
 			req.setAttribute("listRole", roleService.CallGetAllRole());
 	
 			req.getRequestDispatcher("role-table.jsp").forward(req, resp);
@@ -32,6 +52,8 @@ public class RoleController extends HttpServlet {
 		}else if  (servletPath.equals(PathName.EDITROLES.getName())) {
 			
 			int id_role = Integer.parseInt(req.getParameter("id_role")) ;
+			
+			
 			
 			req.setAttribute("role", roleService.callGetRoleById(id_role));
 			

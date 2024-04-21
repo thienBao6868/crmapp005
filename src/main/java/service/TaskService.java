@@ -87,4 +87,8 @@ public class TaskService {
 		
 		return taskRepository.deleteTaskById(id_task) > 0;
 	}
+	
+	public User callGetUserDoTask(int id_task) {
+		return userRepository.getUserDoTask(id_task);
+	}
 }

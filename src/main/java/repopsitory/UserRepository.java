@@ -42,7 +42,7 @@ public class UserRepository {
 	public List<User> GetAllUser() {
 
 		List<User> listUser = new ArrayList<User>();
-		String query = "SELECT u.id , u.fullname ,u.first_name,u.last_name ,u.email , r.name as role_name\n"
+		String query = "SELECT u.id , u.fullname ,u.first_name,u.last_name ,u.email , r.name as role_name, r.id as id_role\n"
 				+ "FROM users u \n" + "LEFT JOIN roles r ON r.id = u.id_role ;";
 		Connection connection = MySQLConfig.getConnection();
 		try {
@@ -61,6 +61,7 @@ public class UserRepository {
 
 				Role role = new Role();
 				role.setName(resultSet.getString("role_name"));
+				role.setId(resultSet.getInt("id_role"));
 				user.setRole(role);
 
 				listUser.add(user);
@@ -157,5 +158,32 @@ public class UserRepository {
 		
 		return result;
 	}
-	
+	public User getUserDoTask(int id_task) {
+		User user = new User();
+		String query = "SELECT u.id, u.fullname \n"
+				+ "FROM task t\n"
+				+ "JOIN assigntask a ON a.id_task = t.id \n"
+				+ "JOIN users u ON u.id = a.id_user \n"
+				+ "WHERE t.id = '"+id_task+"';";
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+
+				user.setId(resultSet.getInt("id"));
+				user.setFullname(resultSet.getString("fullname"));
+		
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi kết nối Database lấy user by Id" + e.getLocalizedMessage());
+		}
+
+		return user;
+	}
 }
