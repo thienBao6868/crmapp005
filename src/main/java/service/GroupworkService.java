@@ -24,9 +24,9 @@ public class GroupworkService {
 		return projectRepository.CreateProject( tenDuAn, ngayBatDau, ngayKetThuc);
 	}
 	
-	public List<Project> CallGetAllProject () {
+	public List<Project> CallGetAllProject (int id_user, int id_role) {
 		
-		List<Project> listProject = projectRepository.GetAllProject();
+		List<Project> listProject = projectRepository.GetAllProject(id_user, id_role);
 		
 		for (int i =0; i < listProject.size(); i++) {
 				listProject.get(i).setStart_date(utility.convertTimestampToDateTime(listProject.get(i).getStart_date()));

@@ -146,6 +146,7 @@
                                             <th>Tên Dự Án</th>
                                             <th>Ngày Bắt Đầu</th>
                                             <th>Ngày Kết Thúc</th>
+                                            <th>Quản Lý Dự Án</th>
                                             <th>Hành Động</th>
                                         </tr>
                                     </thead>
@@ -158,6 +159,7 @@
                                             <td>${project.name}</td>
                                             <td>${project.start_date}</td>
                                             <td>${project.end_date }</td>
+                                            <td>${project.user.fullname}</td>
                                             <td>
                                                 <a href="groupwork-edit?id-project=${project.id}" class="btn btn-sm btn-primary">Sửa</a>
                                                 <a class="btn btn-sm btn-danger btn-xoa" id-project="${project.id}">Xóa</a>

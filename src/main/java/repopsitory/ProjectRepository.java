@@ -8,6 +8,7 @@ import java.util.List;
 
 import config.MySQLConfig;
 import emtity.Project;
+import emtity.User;
 
 public class ProjectRepository {
 
@@ -33,11 +34,38 @@ public class ProjectRepository {
 		return result;
 	}
 
-	public List<Project> GetAllProject() {
+	public List<Project> GetAllProject(int id_user, int id_role) {
 
 		List<Project> listProject = new ArrayList<Project>();
+		String query = "";
+		switch (id_role) {
+		case 1:
+			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user, u.fullname\n"
+					+ "FROM project p \n"
+					+ "JOIN users u ON u.id = p.id_user ";
+			break;
+		case 2:
+			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user, u.fullname\n"
+					+ "FROM project p \n"
+					+ "JOIN users u ON u.id = p.id_user \n"
+					+ "WHERE p.id_user = '"+id_user+"';";
+			break;
 
-		String query = "SELECT  * FROM  project ";
+		case 3:
+			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user , u.fullname\n"
+					+ "FROM project p \n"
+					+ "JOIN task t ON t.id_project = p.id \n"
+					+ "JOIN assigntask a ON a.id_task = t.id \n"
+					+ "JOIN users u ON u.id = a.id_user \n"
+					+ "WHERE a.id_user = '"+id_user+"'\n"
+					+ "GROUP BY p.id\n"
+					+ "ORDER BY p.id ASC ";
+			break;
+
+		default:
+			break;
+		}
+
 		Connection connection = MySQLConfig.getConnection();
 
 		try {
@@ -45,11 +73,16 @@ public class ProjectRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
+				User user = new User();
+				user.setId(result.getInt("id_user"));
+				user.setFullname(result.getString("fullname"));
+
 				Project project = new Project();
 				project.setId(result.getInt("id"));
 				project.setName(result.getString("name"));
 				project.setStart_date(result.getString("start_date"));
 				project.setEnd_date(result.getString("end_date"));
+				project.setUser(user);
 
 				listProject.add(project);
 
@@ -90,13 +123,12 @@ public class ProjectRepository {
 
 		return project;
 	}
-	
-	public int updateProjectById (int id_project, String nameProject, String startDate, String endDate) {
+
+	public int updateProjectById(int id_project, String nameProject, String startDate, String endDate) {
 		int result = 0;
 
-		String query = "UPDATE project t\n"
-				+ "SET t.name ='"+nameProject+"' , t.start_date = '"+startDate+"' , t.end_date = '"+endDate+"' \n"
-				+ "WHERE t.id  = '"+id_project+"' ;";
+		String query = "UPDATE project t\n" + "SET t.name ='" + nameProject + "' , t.start_date = '" + startDate
+				+ "' , t.end_date = '" + endDate + "' \n" + "WHERE t.id  = '" + id_project + "' ;";
 
 		Connection connection = MySQLConfig.getConnection();
 
@@ -112,24 +144,23 @@ public class ProjectRepository {
 
 		return result;
 	}
-	
-	public int deleteProjectById (int id_project) {
+
+	public int deleteProjectById(int id_project) {
 		int result = 0;
 
-		String updateIdProjectOfTask = "UPDATE task t\n"
-				+ "SET t.id_project = NULL \n"
-				+ "WHERE t.id_project ='"+id_project+"';";
-		
-		String deleteProjectById = "DELETE FROM project WHERE project.id = '"+id_project+"';";
-		
+		String updateIdProjectOfTask = "UPDATE task t\n" + "SET t.id_project = NULL \n" + "WHERE t.id_project ='"
+				+ id_project + "';";
+
+		String deleteProjectById = "DELETE FROM project WHERE project.id = '" + id_project + "';";
+
 		Connection connection = MySQLConfig.getConnection();
 
 		try {
-			PreparedStatement updateIdProjectOfTaskStatement  = connection.prepareStatement(updateIdProjectOfTask);
+			PreparedStatement updateIdProjectOfTaskStatement = connection.prepareStatement(updateIdProjectOfTask);
 			updateIdProjectOfTaskStatement.executeUpdate();
-			PreparedStatement deleteProjectByIdStatement  = connection.prepareStatement(deleteProjectById);
+			PreparedStatement deleteProjectByIdStatement = connection.prepareStatement(deleteProjectById);
 			result = deleteProjectByIdStatement.executeUpdate();
-		
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Lỗi xoá project" + e.getLocalizedMessage());
@@ -137,6 +168,5 @@ public class ProjectRepository {
 
 		return result;
 	}
-	
-	
+
 }

@@ -6,9 +6,15 @@ public class Project {
 	private String name;
 	private String start_date;
 	private String end_date;
+	private User user;
 	
 	
-	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getId() {
 		return id;
 	}

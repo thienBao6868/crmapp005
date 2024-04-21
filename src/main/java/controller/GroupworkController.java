@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +24,27 @@ public class GroupworkController extends HttpServlet {
 
 		if (servletPath.equals(PathName.GROUPWORK.getName())) {
 			
-			req.setAttribute("listProject", groupworkService.CallGetAllProject());
+			int id_user = 0;
+			int id_role = 0;
+			// Retrieve the cookies associated with the request
+			Cookie[] cookies = req.getCookies();
+
+			// Check if cookies exist
+			if (cookies != null) {
+				// Iterate over the cookies array
+				for (Cookie cookie : cookies) {
+					String name = cookie.getName();
+					String value = cookie.getValue();
+					if (name.equals("id_user")) {
+						id_user = Integer.parseInt(value);
+					}
+					if (name.equals("role")) {
+						id_role=Integer.parseInt(value) ;
+					}
+				}
+			}
 			
-			
-			
+			req.setAttribute("listProject", groupworkService.CallGetAllProject(id_user, id_role));
 			req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
 		} else if (servletPath.equals(PathName.ADDGROUPWORK.getName())) {
 			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
