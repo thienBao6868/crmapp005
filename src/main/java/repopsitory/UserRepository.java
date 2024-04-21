@@ -11,8 +11,6 @@ import emtity.Role;
 import emtity.User;
 
 public class UserRepository {
-	
-	
 
 	public int createUser(String firstName, String lastName, String fullName, String email, String passWord,
 			String phone, int idRole) {
@@ -57,7 +55,6 @@ public class UserRepository {
 				user.setFirstName(resultSet.getString("first_name"));
 				user.setLastName(resultSet.getString("last_name"));
 				user.setFullname(resultSet.getString("fullname"));
-				
 
 				Role role = new Role();
 				role.setName(resultSet.getString("role_name"));
@@ -117,54 +114,49 @@ public class UserRepository {
 				+ "' , s.fullname = '" + fullName + "' , s.phone = '" + phone + "' ,s.first_name = '" + firstName
 				+ "', s.last_name = '" + lastName + "' , s.id_role = '" + idRole + "' \n" + "WHERE s.id  = '" + id_user
 				+ "' ;";
-		
+
 		Connection connection = MySQLConfig.getConnection();
-		
+
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
 			result = statement.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("lỗi update User" + e.getLocalizedMessage());
 		}
-		
-		
+
 		return result;
 	}
 
-	public int deleteUserById (int id_user) {
+	public int deleteUserById(int id_user) {
 		int result = 0;
 
-		String deleteIdUserOfAssignTask = "DELETE FROM assigntask WHERE assigntask.id_user = '"+id_user+"'"  ;
-		
-		
-		String deleteUserById = "DELETE FROM users WHERE users.id  ='"+id_user+"' ";
-		
+		String deleteIdUserOfAssignTask = "DELETE FROM assigntask WHERE assigntask.id_user = '" + id_user + "'";
+
+		String deleteUserById = "DELETE FROM users WHERE users.id  ='" + id_user + "' ";
+
 		Connection connection = MySQLConfig.getConnection();
-		
+
 		try {
 			PreparedStatement deleteAssignTaskStatement = connection.prepareStatement(deleteIdUserOfAssignTask);
 			deleteAssignTaskStatement.executeUpdate();
-			
+
 			PreparedStatement deleteUserByIdStatement = connection.prepareStatement(deleteUserById);
 			result = deleteUserByIdStatement.executeUpdate();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("lỗi xoá user : " + e.getLocalizedMessage());
 		}
-		
-		
+
 		return result;
 	}
+
 	public User getUserDoTask(int id_task) {
 		User user = new User();
-		String query = "SELECT u.id, u.fullname \n"
-				+ "FROM task t\n"
-				+ "JOIN assigntask a ON a.id_task = t.id \n"
-				+ "JOIN users u ON u.id = a.id_user \n"
-				+ "WHERE t.id = '"+id_task+"';";
+		String query = "SELECT u.id, u.fullname \n" + "FROM task t\n" + "JOIN assigntask a ON a.id_task = t.id \n"
+				+ "JOIN users u ON u.id = a.id_user \n" + "WHERE t.id = '" + id_task + "';";
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -175,7 +167,6 @@ public class UserRepository {
 
 				user.setId(resultSet.getInt("id"));
 				user.setFullname(resultSet.getString("fullname"));
-		
 
 			}
 
@@ -186,4 +177,48 @@ public class UserRepository {
 
 		return user;
 	}
+
+	public List<User> getAllUserIsLeader(int id_user, int id_role) {
+
+		List<User> listUser = new ArrayList<User>();
+		String query = "";
+
+		switch (id_role) {
+		case 1:
+			query="SELECT u.id,u.fullname \n"
+					+ "FROM users u \n"
+					+ "WHERE u.id_role =2;";
+			break;
+		case 2:
+			query = "SELECT u.id,u.fullname \n"
+					+ "FROM users u \n"
+					+ "WHERE u.id = '"+id_user+"';";
+			break;
+		default:
+			break;
+		}
+
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				User user = new User();
+				// Lấy giá trị của cột id và gán vào thuộc tính id của đối tượng User
+				user.setId(resultSet.getInt("id"));
+				user.setFullname(resultSet.getString("fullname"));
+
+				listUser.add(user);
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error : " + e.getLocalizedMessage());
+		}
+
+		return listUser;
+	}
+
 }

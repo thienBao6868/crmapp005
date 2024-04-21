@@ -12,12 +12,12 @@ import emtity.User;
 
 public class ProjectRepository {
 
-	public int CreateProject(String tenDuAn, String ngayBatDau, String ngayKetThuc) {
+	public int CreateProject(String tenDuAn, String ngayBatDau, String ngayKetThuc, int id_user) {
 
 		int result = 0;
 
-		String query = "INSERT INTO project (name,start_date,end_date) VALUES ('" + tenDuAn + "','" + ngayBatDau + "','"
-				+ ngayKetThuc + "')";
+		String query = "INSERT INTO project (name,start_date,end_date,id_user) VALUES ('" + tenDuAn + "','" + ngayBatDau + "','"
+				+ ngayKetThuc + "','"+id_user+"')";
 
 		Connection connection = MySQLConfig.getConnection();
 

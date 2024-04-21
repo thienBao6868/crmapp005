@@ -25,9 +25,9 @@ public class TaskService {
 	private AssignTaskRepository assignTaskRepository = new AssignTaskRepository();
 	private Utility utility = new Utility();
 
-	public List<Project> CallGetAllProject() {
+	public List<Project> CallGetAllProject(int id_user, int id_role) {
 
-		return projectRepository.GetAllProject();
+		return projectRepository.GetAllProject(id_user, id_role);
 	}
 
 	public List<User> CallGetAllUser() {
