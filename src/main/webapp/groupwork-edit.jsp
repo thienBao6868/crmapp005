@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -152,9 +154,19 @@
                                             class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
+									<label class="col-md-12">Phân công quản lý dự án</label>
+									<div class="col-md-12">
+										<select class="form-control form-control-line" name="leader">
+										 	<c:forEach items="${listUserIsLeader}" var="leader">
+												<option value="${leader.id}" ${leader.id == project.user.id ? 'selected': ''}>${leader.fullname}</option>
+											</c:forEach> 
+										</select>
+									</div>
+								</div>
+                                <div class="form-group">
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-success">cập nhật</button>
-                                        <a href="groupwork.html" class="btn btn-primary">Quay lại</a>
+                                        <a href="groupwork" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>

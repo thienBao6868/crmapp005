@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import enumdata.PathName;
 import service.GroupworkService;
+import service.ProfileService;
 
 @WebServlet(name = "groupworkController", urlPatterns = { "/groupwork-add", "/groupwork", "/groupwork-details","/groupwork-edit"})
 public class GroupworkController extends HttpServlet {
@@ -44,6 +45,7 @@ public class GroupworkController extends HttpServlet {
 				}
 			}
 			
+			req.setAttribute("currentRole", id_role);
 			req.setAttribute("listProject", groupworkService.CallGetAllProject(id_user, id_role));
 			req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
 		} else if (servletPath.equals(PathName.ADDGROUPWORK.getName())) {
@@ -71,13 +73,40 @@ public class GroupworkController extends HttpServlet {
 			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
 		} else if (servletPath.equals(PathName.DETAILSGROUPWORK.getName())) {
 			
+			int id_project = Integer.parseInt(req.getParameter("id_project"));
+			
+			
+			
 		
-			
-			
+			req.setAttribute("listUserOfProject", groupworkService.callGetAllUserOfProject(id_project));
+			req.setAttribute("listAllTaskOfProject",groupworkService.callGetAllTaskOfProject(id_project));
+			req.setAttribute("percentOfTask",groupworkService.getPercentOfTask(id_project)); 
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
 		} else if (servletPath.equals(PathName.EDITGROUPWORK.getName())) {
 			
 			int id_project = Integer.parseInt(req.getParameter("id-project"));
+			
+			int id_user = 0;
+			int id_role = 0;
+			// Retrieve the cookies associated with the request
+			Cookie[] cookies = req.getCookies();
+
+			// Check if cookies exist
+			if (cookies != null) {
+				// Iterate over the cookies array
+				for (Cookie cookie : cookies) {
+					String name = cookie.getName();
+					String value = cookie.getValue();
+					if (name.equals("id_user")) {
+						id_user = Integer.parseInt(value);
+					}
+					if (name.equals("role")) {
+						id_role=Integer.parseInt(value) ;
+					}
+				}
+			}
+			
+			req.setAttribute("listUserIsLeader", groupworkService.callGetAllUserIsLeader(id_user, id_role));
 			
 			req.setAttribute("project", groupworkService.callGetProjectById(id_project));
 			

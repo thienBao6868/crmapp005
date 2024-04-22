@@ -348,4 +348,53 @@ public class TaskRepository {
 		return listQuantityTask;
 
 	}
+	
+	public List<Task> getAllTaskOfProject (int id_project){
+		
+		List<Task> listTaskOfProject = new ArrayList<Task>();
+		
+		String query = "SELECT t.id as id_task ,t.name ,t.start_date ,t.end_date , s.id as id_status, s.name as name_status , u.id as id_user, u.fullname \n"
+				+ "FROM task t \n"
+				+ "JOIN status s ON s.id = t.id_status \n"
+				+ "JOIN assigntask a ON a.id_task = t.id \n"
+				+ "JOIN users u ON u.id = a.id_user \n"
+				+ "WHERE t.id_project = '"+id_project+"';";
+		
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				User user = new User();
+				
+				user.setId(resultSet.getInt("id_user"));
+				user.setFullname(resultSet.getString("fullname"));
+				
+				Status status = new Status();
+				status.setId(resultSet.getInt("id_status"));
+				status.setName(resultSet.getString("name_status"));
+				Task task = new Task();
+				
+				task.setId(resultSet.getInt("id_task"));
+				task.setName(resultSet.getString("name"));
+				task.setStart_date(resultSet.getString("start_date"));
+				task.setEnd_date(resultSet.getString("end_date"));
+				
+				task.setStatus(status);
+				task.setUser(user);
+				
+				listTaskOfProject.add(task);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error Kết nối database lấy all task of project  : " + e.getLocalizedMessage());
+		}
+
+		return listTaskOfProject;
+		
+	}
+	
 }

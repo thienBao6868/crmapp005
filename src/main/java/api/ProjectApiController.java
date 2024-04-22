@@ -55,8 +55,9 @@ public class ProjectApiController extends HttpServlet{
 		String nameProject = req.getParameter("name");
 		String startDate = req.getParameter("start_date");
 		String endDate = req.getParameter("end_date");
+		int id_leader = Integer.parseInt(req.getParameter("id_leader"));
 		
-		boolean isSuccess = groupworkService.callUpdateProjectById(id_project, nameProject, startDate, endDate);
+		boolean isSuccess = groupworkService.callUpdateProjectById(id_project, nameProject, startDate, endDate,id_leader);
 		
 		BaseResponse baseResponse = new BaseResponse();
 

@@ -162,7 +162,7 @@
                                             <td>${project.user.fullname}</td>
                                             <td>
                                                 <a href="groupwork-edit?id-project=${project.id}" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a class="btn btn-sm btn-danger btn-xoa" id-project="${project.id}">Xóa</a>
+                                                <a class="btn btn-sm btn-danger btn-xoa" id-project="${project.id}" current-role="${currentRole}" >Xóa</a>
                                                 <a href="groupwork-details?id_project=${project.id}" class="btn btn-sm btn-info">Xem</a>
                                             </td>
                                         </tr>

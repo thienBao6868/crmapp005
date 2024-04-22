@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import enumdata.RoleName;
 
-@WebFilter(filterName = "authorFilter", urlPatterns = { "/add-user","/user-edit","/user-details","/add-project","/role-add","/role-edit","/groupwork-add","/task-add" })
+@WebFilter(filterName = "authorFilter", urlPatterns = { "/add-user","/user-edit","/user-details","/add-project","/role-add","/role-edit","/groupwork-add","/groupwork-edit","/task-add" })
 public class AuthorFilter implements Filter {
 
 	@Override
@@ -40,7 +40,7 @@ public class AuthorFilter implements Filter {
 		String path = req.getServletPath();
 		
 		if(roleUser.equals(RoleName.LEAD.getName())) {
-			if(path.equals("/add-project") || path.equals("/groupwork-add") || path.equals("/task-add")) {
+			if(path.equals("/add-project") || path.equals("/groupwork-add") || path.equals("/task-add") || path.equals("/groupwork-edit")) {
 				chain.doFilter(request, response);
 			}else {
 				resp.sendRedirect(req.getContextPath()+"/404");

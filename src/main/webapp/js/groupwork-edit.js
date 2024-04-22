@@ -16,12 +16,16 @@ $(document).ready(function() {
 		// Lấy giá trị của trường input có name là "ngayKetThuc"
 		var end_date = $("input[name='ngayKetThuc']").val();
 		
+		var id_leader = $("select[name='leader']").val();
+		
+
+		
 
 		// Gọi API thông qua AJAX
 		$.ajax({
 			method: "POST",
 			url: "http://localhost:8080/crmapp05/api/groupwork-edit",
-			data: {id_project:id_project,name:name,start_date:start_date,end_date:end_date},
+			data: {id_project:id_project,name:name,start_date:start_date,end_date:end_date,id_leader:id_leader},
 			  success: function(response) {
                 // Xử lý khi gọi API thành công
                 console.log(response);

@@ -16,8 +16,8 @@ public class ProjectRepository {
 
 		int result = 0;
 
-		String query = "INSERT INTO project (name,start_date,end_date,id_user) VALUES ('" + tenDuAn + "','" + ngayBatDau + "','"
-				+ ngayKetThuc + "','"+id_user+"')";
+		String query = "INSERT INTO project (name,start_date,end_date,id_user) VALUES ('" + tenDuAn + "','" + ngayBatDau
+				+ "','" + ngayKetThuc + "','" + id_user + "')";
 
 		Connection connection = MySQLConfig.getConnection();
 
@@ -40,26 +40,19 @@ public class ProjectRepository {
 		String query = "";
 		switch (id_role) {
 		case 1:
-			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user, u.fullname\n"
-					+ "FROM project p \n"
+			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user, u.fullname\n" + "FROM project p \n"
 					+ "JOIN users u ON u.id = p.id_user ";
 			break;
 		case 2:
-			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user, u.fullname\n"
-					+ "FROM project p \n"
-					+ "JOIN users u ON u.id = p.id_user \n"
-					+ "WHERE p.id_user = '"+id_user+"';";
+			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user, u.fullname\n" + "FROM project p \n"
+					+ "JOIN users u ON u.id = p.id_user \n" + "WHERE p.id_user = '" + id_user + "';";
 			break;
 
 		case 3:
-			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user , u.fullname\n"
-					+ "FROM project p \n"
-					+ "JOIN task t ON t.id_project = p.id \n"
-					+ "JOIN assigntask a ON a.id_task = t.id \n"
-					+ "JOIN users u ON u.id = a.id_user \n"
-					+ "WHERE a.id_user = '"+id_user+"'\n"
-					+ "GROUP BY p.id\n"
-					+ "ORDER BY p.id ASC ";
+			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user , u.fullname\n" + "FROM project p \n"
+					+ "JOIN task t ON t.id_project = p.id \n" + "JOIN assigntask a ON a.id_task = t.id \n"
+					+ "JOIN users u ON u.id = a.id_user \n" + "WHERE a.id_user = '" + id_user + "'\n"
+					+ "GROUP BY p.id\n" + "ORDER BY p.id ASC ";
 			break;
 
 		default:
@@ -100,7 +93,8 @@ public class ProjectRepository {
 	public Project getProjectById(int id_project) {
 		Project project = new Project();
 
-		String query = "SELECT *\n" + "FROM project p \n" + "WHERE p.id = '" + id_project + "' ; ";
+		String query = "SELECT p.id,p.name ,p.start_date ,p.end_date , u.id as id_user , u.fullname \n"
+				+ "FROM project p \n" + "JOIN users u ON u.id = p.id_user \n" + "WHERE p.id = '" + id_project + "'; ";
 		Connection connection = MySQLConfig.getConnection();
 
 		try {
@@ -114,6 +108,11 @@ public class ProjectRepository {
 				project.setStart_date(result.getString("start_date"));
 				project.setEnd_date(result.getString("end_date"));
 
+				User leader = new User();
+				leader.setId(result.getInt("id_user"));
+				leader.setFullname(result.getString("fullname"));
+				project.setUser(leader);
+
 			}
 
 		} catch (Exception e) {
@@ -124,11 +123,12 @@ public class ProjectRepository {
 		return project;
 	}
 
-	public int updateProjectById(int id_project, String nameProject, String startDate, String endDate) {
+	public int updateProjectById(int id_project, String nameProject, String startDate, String endDate, int id_leader) {
 		int result = 0;
 
-		String query = "UPDATE project t\n" + "SET t.name ='" + nameProject + "' , t.start_date = '" + startDate
-				+ "' , t.end_date = '" + endDate + "' \n" + "WHERE t.id  = '" + id_project + "' ;";
+		String query = "UPDATE project t\n"
+				+ "SET t.name = '"+nameProject+"', t.start_date = '"+startDate+"' , t.end_date = '"+endDate+"' , t.id_user='"+id_leader+"' \n"
+				+ "WHERE t.id  = '"+id_project+"' ;";
 
 		Connection connection = MySQLConfig.getConnection();
 
