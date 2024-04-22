@@ -148,15 +148,14 @@ public class ProjectRepository {
 	public int deleteProjectById(int id_project) {
 		int result = 0;
 
-		String updateIdProjectOfTask = "UPDATE task t\n" + "SET t.id_project = NULL \n" + "WHERE t.id_project ='"
-				+ id_project + "';";
+		String deleteTask = "DELETE FROM task t WHERE t.id_project = '"+id_project+"'";
 
 		String deleteProjectById = "DELETE FROM project WHERE project.id = '" + id_project + "';";
 
 		Connection connection = MySQLConfig.getConnection();
 
 		try {
-			PreparedStatement updateIdProjectOfTaskStatement = connection.prepareStatement(updateIdProjectOfTask);
+			PreparedStatement updateIdProjectOfTaskStatement = connection.prepareStatement(deleteTask);
 			updateIdProjectOfTaskStatement.executeUpdate();
 			PreparedStatement deleteProjectByIdStatement = connection.prepareStatement(deleteProjectById);
 			result = deleteProjectByIdStatement.executeUpdate();
