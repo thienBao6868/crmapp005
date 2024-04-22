@@ -9,11 +9,11 @@ $(document).ready(function() {
 
  	// Lấy giá trị của trường input có id là "id-task"
         var id_task = $(this).attr("id-task");
+        var id_role = $(this).attr("id-role");
        	This = $(this);
    
-       
-
-        // Gọi API thông qua AJAX
+       if(id_role == 1 || id_role == 2){
+		    // Gọi API thông qua AJAX
         $.ajax({
             method: "GET",
             url: "http://localhost:8080/crmapp05/api/delete-task?id_task="+ id_task,
@@ -34,5 +34,11 @@ $(document).ready(function() {
 		})
         
         ;
+		   
+	   }else{
+		   window.location.href = "404.jsp";
+	   }
+
+       
     });
 });

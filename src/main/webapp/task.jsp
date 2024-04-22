@@ -160,15 +160,11 @@
 												<td>${task.status.name}</td>
 												<td>
 													<a href="task-edit?id_task=${task.id}" class="btn btn-sm btn-primary">Sửa</a>
-													 <a href="#" class="btn btn-sm btn-danger btn-xoa" id-task="${task.id}">Xóa</a>
-													 <a href="#" class="btn btn-sm btn-info">Xem</a>
+													 <a href="#" class="btn btn-sm btn-danger btn-xoa" id-task="${task.id} id-role="${idRole}">Xóa</a>
+													 <a href="task-detail?id_task=${task.id}" class="btn btn-sm btn-info">Xem</a>
 												</td>
 											</tr>
 										</c:forEach>
-
-
-
-
 									</tbody>
 								</table>
 							</div>
