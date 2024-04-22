@@ -52,9 +52,9 @@ public class TaskService {
 
 	}
 
-	public List<Task> CallGetAllTask() {
+	public List<Task> CallGetAllTask(int id_user, int id_role) {
 
-		List<Task> listTask = taskRepository.GetAllTask();
+		List<Task> listTask = taskRepository.getAllTaskByUser(id_user, id_role);
 		for (int i = 0; i < listTask.size(); i++) {
 			listTask.get(i).setStart_date(utility.convertTimestampToDateTime(listTask.get(i).getStart_date()));
 			listTask.get(i).setEnd_date(utility.convertTimestampToDateTime(listTask.get(i).getEnd_date()));
@@ -90,5 +90,9 @@ public class TaskService {
 	
 	public User callGetUserDoTask(int id_task) {
 		return userRepository.getUserDoTask(id_task);
+	}
+	
+	public List<User> callGetAllUserIsStaff () {
+		return userRepository.getAllUserIsStaff();
 	}
 }

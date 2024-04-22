@@ -254,5 +254,37 @@ public class UserRepository {
 
 		return listUser;
 	}
+	
+	public List<User> getAllUserIsStaff () {
+
+		List<User> listUser = new ArrayList<User>();
+		String query = "SELECT u.id, u.fullname \n"
+				+ "FROM users u \n"
+				+ "WHERE u.id_role =3;";
+
+	
+
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				User user = new User();
+				// Lấy giá trị của cột id và gán vào thuộc tính id của đối tượng User
+				user.setId(resultSet.getInt("id"));
+				user.setFullname(resultSet.getString("fullname"));
+
+				listUser.add(user);
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error : " + e.getLocalizedMessage());
+		}
+
+		return listUser;
+	}
 
 }

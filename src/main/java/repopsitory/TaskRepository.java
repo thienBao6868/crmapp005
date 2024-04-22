@@ -55,61 +55,17 @@ public class TaskRepository {
 
 		return newTaskId;
 	}
-
-	public List<Task> GetAllTask() {
-
-		List<Task> listTask = new ArrayList<Task>();
-
-		String query = "SELECT t.id ,t.name as task_name , p.name as project_name , t.start_date ,t.end_date , s.name as status_name, u.id,u.fullname \n"
-				+ "FROM task t\n" + "LEFT JOIN assigntask a ON a.id_task = t.id \n"
-				+ "LEFT JOIN project p ON p.id = t.id_project\n" + "LEFT JOIN users u ON u.id = a.id_user \n"
-				+ "JOIN status s ON s.id = t.id_status ";
-		Connection connection = MySQLConfig.getConnection();
-		try {
-			PreparedStatement statement = connection.prepareStatement(query);
-
-			ResultSet resultSet = statement.executeQuery();
-
-			while (resultSet.next()) {
-				Task task = new Task();
-				Status status = new Status();
-				Project project = new Project();
-				User user = new User();
-
-				status.setName(resultSet.getString("status_name"));
-				project.setName(resultSet.getString("project_name"));
-				user.setFullname(resultSet.getString("fullname"));
-
-				task.setId(resultSet.getInt("id"));
-				task.setName(resultSet.getString("task_name"));
-				task.setStart_date(resultSet.getString("start_date"));
-				task.setEnd_date(resultSet.getString("end_date"));
-				task.setStatus(status);
-				task.setProject(project);
-				task.setUser(user);
-
-				listTask.add(task);
-
-			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error Kết nối database lấy all task : " + e.getLocalizedMessage());
-		}
-
-		return listTask;
-	}
-
+	
 	public List<Task> getAllTaskByUser(int id_user, int id_role) {
 		
-		System.out.println(id_role);
+		
 		List<Task> listTask = new ArrayList<Task>();
 
 		String query = "";
 
 		switch (id_role) {
 		case 1:
-			query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name\n"
+			query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name , u.id as id_user, u.fullname \n"
 					+ "FROM task t \n"
 					+ "LEFT JOIN status s ON s.id = t.id_status\n"
 					+ "LEFT JOIN project p ON p.id = t.id_project\n"
@@ -117,19 +73,21 @@ public class TaskRepository {
 					+ "LEFT JOIN users u ON u.id = a.id_user ";
 			break;
 		case 2:
-			query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name\n"
-					+ "FROM task t \n"
+			query = "SELECT t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name,u.id as id_user, u.fullname \n"
+					+ "FROM project p \n"
+					+ "JOIN task t ON t.id_project = p.id \n"
+					+ "JOIN assigntask a ON a.id_task = t.id \n"
+					+ "JOIN users u ON u.id = a.id_user \n"
 					+ "JOIN status s ON s.id = t.id_status\n"
-					+ "JOIN project p ON p.id = t.id_project\n"
-					+ "JOIN users u ON u.id = p.id_user \n"
-					+ "WHERE u.id = '"+id_user+"'";
+					+ "WHERE p.id_user = '"+id_user+"'";
 			break;
 		case 3:
-			query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name\n"
+			query = "SELECT  t.id as id_task,t.name as task_name , p.name as project_name , t.start_date ,t.end_date ,s.id as id_status, s.name as status_name, u.id as id_user, u.fullname \n"
 					+ "FROM task t \n"
 					+ "LEFT JOIN status s ON s.id = t.id_status\n"
 					+ "LEFT JOIN project p ON p.id = t.id_project\n"
 					+ "LEFT JOIN assigntask a ON a.id_task = t.id \n"
+					+"JOIN users u ON u.id = a.id_user "
 					+ "WHERE a.id_user = '"+id_user+"'";
 			break;
 		default:
@@ -146,10 +104,13 @@ public class TaskRepository {
 				Task task = new Task();
 				Status status = new Status();
 				Project project = new Project();
+				User user = new User();
 
 				status.setName(resultSet.getString("status_name"));
 				status.setId(resultSet.getInt("id_status"));
 				project.setName(resultSet.getString("project_name"));
+				user.setId(resultSet.getInt("id_user"));
+				user.setFullname(resultSet.getString("fullname"));
 
 				task.setId(resultSet.getInt("id_task"));
 				task.setName(resultSet.getString("task_name"));
@@ -157,6 +118,7 @@ public class TaskRepository {
 				task.setEnd_date(resultSet.getString("end_date"));
 				task.setStatus(status);
 				task.setProject(project);
+				task.setUser(user);
 
 				listTask.add(task);
 			}

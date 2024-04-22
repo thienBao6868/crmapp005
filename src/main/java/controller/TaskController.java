@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,15 +23,56 @@ public class TaskController extends HttpServlet {
 		String servletPath = req.getServletPath();
 
 		if (servletPath.equals(PathName.ADDTASK.getName())) {
+			int id_user = 0;
+			int id_role = 0;
+			// Retrieve the cookies associated with the request
+			Cookie[] cookies = req.getCookies();
+
+			// Check if cookies exist
+			if (cookies != null) {
+				// Iterate over the cookies array
+				for (Cookie cookie : cookies) {
+					String name = cookie.getName();
+					String value = cookie.getValue();
+					if (name.equals("id_user")) {
+						id_user = Integer.parseInt(value);
+					}
+					if (name.equals("role")) {
+						id_role=Integer.parseInt(value) ;
+					}
+				}
+			}
 			
-			req.setAttribute("listProject", taskService.CallGetAllProject());
-			req.setAttribute("listUser", taskService.CallGetAllUser());
+			
+			req.setAttribute("listProject", taskService.CallGetAllProject(id_user, id_role));
+			req.setAttribute("listUser", taskService.callGetAllUserIsStaff());
 			
 			req.getRequestDispatcher("task-add.jsp").forward(req, resp);
 
 		} else if (servletPath.equals(PathName.TASK.getName())) {
 			
-			req.setAttribute("listTask", taskService.CallGetAllTask());
+			
+			int id_user = 0;
+			int id_role = 0;
+			// Retrieve the cookies associated with the request
+			Cookie[] cookies = req.getCookies();
+
+			// Check if cookies exist
+			if (cookies != null) {
+				// Iterate over the cookies array
+				for (Cookie cookie : cookies) {
+					String name = cookie.getName();
+					String value = cookie.getValue();
+					if (name.equals("id_user")) {
+						id_user = Integer.parseInt(value);
+					}
+					if (name.equals("role")) {
+						id_role=Integer.parseInt(value) ;
+					}
+				}
+			}
+			
+			req.setAttribute("listTask", taskService.CallGetAllTask(id_user, id_role));
 			req.getRequestDispatcher("task.jsp").forward(req, resp);
 			
 		}else if (servletPath.equals(PathName.EDITTASK.getName())) {
@@ -40,7 +82,7 @@ public class TaskController extends HttpServlet {
 			
 			req.setAttribute("task",taskService.callGetTaskById(idTask));
 			req.setAttribute("listStatus", taskService.callGetAllStatus());
-			req.setAttribute("listProject", taskService.CallGetAllProject());
+			//req.setAttribute("listProject", taskService.CallGetAllProject());
 			req.setAttribute("listUser", taskService.CallGetAllUser());
 			req.getRequestDispatcher("task-edit.jsp").forward(req, resp);
 
