@@ -117,15 +117,44 @@ public class GroupworkController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String tenDuAn = req.getParameter("tenDuAn");
-		String ngayBatDau = req.getParameter("ngayBatDau");
-		String ngayKetThuc = req.getParameter("ngayKetThuc");
-		int id_user = Integer.parseInt(req.getParameter("leader"));
+		String servletPath = req.getServletPath();
 		
-		
-		groupworkService.CallCreateProject(tenDuAn, ngayBatDau, ngayKetThuc, id_user);
+		if (servletPath.equals(PathName.ADDGROUPWORK.getName())) {
+			
+			String tenDuAn = req.getParameter("tenDuAn");
+			String ngayBatDau = req.getParameter("ngayBatDau");
+			String ngayKetThuc = req.getParameter("ngayKetThuc");
+			int id_leader = Integer.parseInt(req.getParameter("leader"));
+			
+			
+			boolean isCreateProjectSuccess = groupworkService.CallCreateProject(tenDuAn, ngayBatDau, ngayKetThuc, id_leader);
 
-		resp.sendRedirect(req.getContextPath() + "/groupwork-add");
+			int id_user = 0;
+			int id_role = 0;
+			// Retrieve the cookies associated with the request
+			Cookie[] cookies = req.getCookies();
+
+			// Check if cookies exist
+			if (cookies != null) {
+				// Iterate over the cookies array
+				for (Cookie cookie : cookies) {
+					String name = cookie.getName();
+					String value = cookie.getValue();
+					if (name.equals("id_user")) {
+						id_user = Integer.parseInt(value);
+					}
+					if (name.equals("role")) {
+						id_role=Integer.parseInt(value) ;
+					}
+				}
+			}
+			
+			req.setAttribute("isCreateProjectSuccess", isCreateProjectSuccess);
+			req.setAttribute("listUserIsLeader", groupworkService.callGetAllUserIsLeader(id_user, id_role));
+			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
+			
+		}
+		
 	}
 
 }

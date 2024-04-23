@@ -28,6 +28,7 @@ $(document).ready(function() {
         }).done(function(result){
 			if(result.data){
 				This.closest('tr').remove();
+				alert("Đã xoá Thành Viên Thành công")
 			}else{
 				alert(result.message);
 			}

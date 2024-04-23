@@ -63,7 +63,7 @@ public class TaskApiController extends HttpServlet{
 		BaseResponse baseResponse = new BaseResponse();
 
 		baseResponse.setStatusCode(200);
-		baseResponse.setMessage(isSuccess ? "Update user Thành Công" : " update user Thất bại");
+		baseResponse.setMessage(isSuccess ? "Update Task Thành Công" : " update Task Thất bại");
 		baseResponse.setData(isSuccess);
 
 		String json = gson.toJson(baseResponse);

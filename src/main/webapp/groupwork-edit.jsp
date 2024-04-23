@@ -169,6 +169,12 @@
                                         <a href="groupwork" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
+                                 <div class="form-group">
+                                    <div class="col-sm-12">
+                                       <div class="add-information">
+                                       </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

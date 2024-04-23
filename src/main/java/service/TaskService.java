@@ -34,7 +34,7 @@ public class TaskService {
 		return userRepository.GetAllUser();
 	}
 
-	public int CallCreateTask(String tenCongViec, int idProject, String ngayBatDau, String ngayKetThuc, int idUser)
+	public boolean CallCreateTask(String tenCongViec, int idProject, String ngayBatDau, String ngayKetThuc, int idUser)
 			throws ServletException {
 
 		int result = -1;
@@ -48,7 +48,7 @@ public class TaskService {
 		} else {
 			throw new ServletException("Failed to insert assignTask into database");
 		}
-		return result;
+		return result > 0;
 
 	}
 

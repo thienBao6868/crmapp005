@@ -28,6 +28,7 @@ $(document).ready(function() {
         }).done(function(result){
 			if(result.data){
 				This.closest('tr').remove()
+				alert("Xoá task thành công")
 			}else{
 				alert(result.message)
 			}

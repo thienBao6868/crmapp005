@@ -9,9 +9,9 @@ public class RoleService {
 
 	private RoleRepository roleRepository = new RoleRepository();
 
-	public int callCreateRole(String name, String description) {
+	public boolean callCreateRole(String name, String description) {
 
-		return roleRepository.createRole(name, description);
+		return roleRepository.createRole(name, description) > 0;
 
 	}
 
@@ -31,5 +31,9 @@ public class RoleService {
 	
 	public boolean callDeleteRoleById(int id_role) {
 		return roleRepository.deleteRoleById(id_role) >0 ;
+	}
+	
+	public boolean callCheckUserExists (String name) {
+		return roleRepository.checkUserExists(name);
 	}
 }

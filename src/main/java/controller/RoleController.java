@@ -68,12 +68,31 @@ public class RoleController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String name = req.getParameter("name");
-		String description = req.getParameter("description");
+		String servletPath = req.getServletPath();
+		
+		
+		if (servletPath.equals(PathName.ADDROLES.getName())) {
+			String name = req.getParameter("name");
+			String description = req.getParameter("description");
+			
+			if(roleService.callCheckUserExists(name)) {
+				
+				boolean isAddRoleSuccess = false;
+				req.setAttribute("errorMessage", "Role đã tồn tại");
+				req.setAttribute("isAddRoleSuccess", isAddRoleSuccess);
+				req.getRequestDispatcher("role-add.jsp").forward(req, resp);
+				
+			}else {
+				boolean isAddRoleSuccess = roleService.callCreateRole(name, description);
+				
+				req.setAttribute("isAddRoleSuccess", isAddRoleSuccess);
+				req.getRequestDispatcher("role-add.jsp").forward(req, resp);
+			}
+			
 
-		roleService.callCreateRole(name, description);
-
-		resp.sendRedirect(req.getContextPath() + "/role-add");
+			
+		}
+		
 
 	}
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -150,6 +152,16 @@
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-success">Add Role</button>
                                         <a href="role-table" class="btn btn-primary">Quay lại</a>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <c:if test="${isAddRoleSuccess == true}">
+                                        	<h3 style="color:green">Role mới đã được tạo. Quay lại để xem</h3>
+                                        </c:if>
+                                        <c:if test="${isAddRoleSuccess == false}">
+                                        	<h3 style="color:red">Thêm Role thất bại. ${errorMessage}</h3>
+                                        </c:if>
                                     </div>
                                 </div>
                             </form>

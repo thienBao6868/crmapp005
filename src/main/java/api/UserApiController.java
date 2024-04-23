@@ -24,11 +24,11 @@ public class UserApiController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		String servletPath = req.getServletPath();
-		if(servletPath.equals("/api/delete-user")) {
+		if (servletPath.equals("/api/delete-user")) {
 			int id_user = Integer.parseInt(req.getParameter("id_user"));
-			
+
 			boolean isSuccess = userService.callDeleteUserById(id_user);
 			BaseResponse baseResponse = new BaseResponse();
 
@@ -44,10 +44,9 @@ public class UserApiController extends HttpServlet {
 			PrintWriter printWrite = resp.getWriter();
 			printWrite.write(json);
 			printWrite.close();
-			
+
 		}
-		
-		
+
 	}
 
 	@Override
@@ -81,7 +80,5 @@ public class UserApiController extends HttpServlet {
 		printWrite.close();
 
 	}
-	
-	
 
 }

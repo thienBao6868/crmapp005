@@ -188,6 +188,16 @@
                                         <a href="users" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <c:if test="${isCreateUserSuccess == true}">
+                                        	<h3 style="color:green">User Đã được thêm. Vui lòng quay lại trang thành viên để xem</h3>
+                                        </c:if>
+                                        <c:if test="${isCreateUserSuccess == false}">
+                                        	<h3 style="color:red">Thêm user thất bại. ${errorMessage}</h3>
+                                        </c:if>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

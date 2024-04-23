@@ -126,12 +126,36 @@ public class TaskController extends HttpServlet {
 		int idUser = Integer.parseInt(req.getParameter("nguoiThucHien"));
 		String ngayBatDau = req.getParameter("ngayBatDau");
 		String ngayKetThuc = req.getParameter("ngayKetThuc");
+		boolean isCreateTaskSuccess = taskService.CallCreateTask(tenCongViec, idProject, ngayBatDau, ngayKetThuc, idUser);
+		
+		
+		
 
-		// System.out.println(idProject + tenCongViec + idUser + ngayBatDau +
-		// ngayKetThuc);
-		taskService.CallCreateTask(tenCongViec, idProject, ngayBatDau, ngayKetThuc, idUser);
+		int id_user = 0;
+		int id_role = 0;
+		// Retrieve the cookies associated with the request
+		Cookie[] cookies = req.getCookies();
 
-		resp.sendRedirect(req.getContextPath() + "/task-add");
+		// Check if cookies exist
+		if (cookies != null) {
+			// Iterate over the cookies array
+			for (Cookie cookie : cookies) {
+				String name = cookie.getName();
+				String value = cookie.getValue();
+				if (name.equals("id_user")) {
+					id_user = Integer.parseInt(value);
+				}
+				if (name.equals("role")) {
+					id_role=Integer.parseInt(value) ;
+				}
+			}
+		}
+		
+		req.setAttribute("isCreateTaskSuccess", isCreateTaskSuccess);
+		req.setAttribute("listProject", taskService.CallGetAllProject(id_user, id_role));
+		req.setAttribute("listUser", taskService.callGetAllUserIsStaff());
+		
+		req.getRequestDispatcher("task-add.jsp").forward(req, resp);
 
 	}
 }

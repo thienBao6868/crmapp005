@@ -184,6 +184,16 @@
                                         <a href="task" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
+                                 <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <c:if test="${isCreateTaskSuccess == true}">
+                                        	<h3 style="color:green">Task Đã được thêm. Vui lòng quay lại để xem</h3>
+                                        </c:if>
+                                        <c:if test="${isCreateTaskSuccess == false}">
+                                        	<h3 style="color:red">Thêm task thất bại</h3>
+                                        </c:if>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -36,9 +36,11 @@ $(document).ready(function() {
             }
         }).done(function(result){
 			if(result.data){
-				alert("Cập nhật task thành công")
+					$(".add-information").empty();
+				$(".add-information").append("<h3 style='color:green'>Cập nhật Task thành công</h3>");
 			}else{
-				alert(result.message)
+				$(".add-information").empty();
+				$(".add-information").append("<h3 style='color:red'>Cập nhật Task Thất bại</h3>");
 			}
 		})
         

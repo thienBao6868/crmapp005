@@ -11,6 +11,36 @@ import emtity.Role;
 import emtity.User;
 
 public class UserRepository {
+	
+	public boolean checkUserExists ( String email) {
+		List<User> listUser = new ArrayList<User>();
+		String query = "SELECT u.id\n"
+				+ "FROM users u \n"
+				+ "WHERE u.email = '"+email+"';";
+		Connection connection = MySQLConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				
+				listUser.add(user);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi connect database check user" + e.getLocalizedMessage());
+		}
+		
+		if(listUser.size() != 0) {
+			return true;
+		}else {
+			return false;
+		}
+		
+
+	}
 
 	public int createUser(String firstName, String lastName, String fullName, String email, String passWord,
 			String phone, int idRole) {
@@ -34,8 +64,7 @@ public class UserRepository {
 
 	}
 
-	// Custom để sử dụng được hàm getAllUser cho nhiều trường hợp (sử dụng ở /users
-	// , /task-add)
+	
 
 	public List<User> GetAllUser() {
 
@@ -49,7 +78,7 @@ public class UserRepository {
 
 			while (resultSet.next()) {
 				User user = new User();
-				// Lấy giá trị của cột id và gán vào thuộc tính id của đối tượng User
+			
 				user.setId(resultSet.getInt("id"));
 				user.setEmail(resultSet.getString("email"));
 				user.setFirstName(resultSet.getString("first_name"));
@@ -287,4 +316,5 @@ public class UserRepository {
 		return listUser;
 	}
 
+	
 }

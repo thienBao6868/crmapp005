@@ -78,18 +78,36 @@ public class UserController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String firstName = req.getParameter("firstname");
-		String lastName = req.getParameter("lastname");
-		String fullName = req.getParameter("fullname");
-		String email = req.getParameter("email");
-		String passWord = req.getParameter("password");
-		String phone = req.getParameter("phone");
-		int idRole = Integer.parseInt(req.getParameter("idRole"));
+		String servletPath = req.getServletPath();
+		if(servletPath.equals(PathName.ADDUSER.getName())) {
+			String firstName = req.getParameter("firstname");
+			String lastName = req.getParameter("lastname");
+			String fullName = req.getParameter("fullname");
+			String email = req.getParameter("email");
+			String passWord = req.getParameter("password");
+			String phone = req.getParameter("phone");
+			int idRole = Integer.parseInt(req.getParameter("idRole"));
+			
+			if(userService.callCheckUserExists(email)) {
+				
+				req.setAttribute("errorMessage", "Người dùng đã tồn tại");
+				req.setAttribute("isCreateUserSuccess", false);
+				req.setAttribute("listRole", userService.getAllRole());
+				req.getRequestDispatcher("user-add.jsp").forward(req, resp);
+				
+			}else {
+				boolean isCreateUserSuccess = userService.callCreateUser(firstName, lastName,fullName, email, passWord, phone, idRole);
+				req.setAttribute("isCreateUserSuccess", isCreateUserSuccess);
+				req.setAttribute("listRole", userService.getAllRole());
+				req.getRequestDispatcher("user-add.jsp").forward(req, resp);
+			}
+			
+		
+			
+			
+		}
 		
 		
-		userService.callCreateUser(firstName, lastName,fullName, email, passWord, phone, idRole);
-	
-		resp.sendRedirect(req.getContextPath() + "/add-user");
 	}
 	
 }

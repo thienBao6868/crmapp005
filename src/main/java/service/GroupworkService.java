@@ -22,13 +22,13 @@ public class GroupworkService {
 	
 	private Utility utility = new Utility();
 
-	public int CallCreateProject(String tenDuAn, String ngayBatDau, String ngayKetThuc, int id_user) {
+	public boolean CallCreateProject(String tenDuAn, String ngayBatDau, String ngayKetThuc, int id_user) {
 		
 		
 		ngayBatDau  = utility.ConvertDateTimeToTimestamp(ngayBatDau);
 		ngayKetThuc = utility.ConvertDateTimeToTimestamp(ngayKetThuc);
 		
-		return projectRepository.CreateProject( tenDuAn, ngayBatDau, ngayKetThuc, id_user);
+		return projectRepository.CreateProject( tenDuAn, ngayBatDau, ngayKetThuc, id_user) > 0;
 	}
 	
 	public List<Project> CallGetAllProject (int id_user, int id_role) {

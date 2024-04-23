@@ -48,6 +48,52 @@ public class RoleRepository {
 		}
 		return listRole;
 	}
+	
+	public boolean checkUserExists(String name) {
+
+		List<Role> listRole = new ArrayList<Role>();
+
+		try {
+
+			String query = "SELECT * FROM roles r WHERE r.name = '"+name+"'";
+
+			Connection connection = MySQLConfig.getConnection();
+
+			PreparedStatement statement = connection.prepareStatement(query);
+
+			ResultSet result = statement.executeQuery();
+
+			while (result.next()) {
+
+				Role role = new Role();
+
+				role.setId(result.getInt("id"));
+
+				role.setName(result.getString("name"));
+
+				role.setDescription(result.getString("description"));
+
+				listRole.add(role);
+
+			}
+
+		} catch (Exception e) {
+
+			// **TODO**: handle exception
+
+			System.out.println("Lỗi truy vấn lấy roles" + e.getLocalizedMessage());
+
+		}
+		
+		if(listRole.size() != 0) {
+			return true ;
+			
+		}
+		
+		return false;
+		
+	}
+	
 
 	public int createRole(String name, String description) {
 		int result = 0;

@@ -28,11 +28,14 @@ public class UserService {
 	public List<Role> getAllRole() {
 		return roleRepository.getAll();
 	}
-
-	public int callCreateUser(String firstName, String lastName, String fullName, String email, String passWord,
+	public boolean callCheckUserExists (String email) {
+		return userRepository.checkUserExists(email);
+	}
+	
+	public boolean callCreateUser(String firstName, String lastName, String fullName, String email, String passWord,
 			String phone, int idRole) {
 		
-		return userRepository.createUser(firstName, lastName, fullName, email, passWord, phone, idRole);
+		return userRepository.createUser(firstName, lastName, fullName, email, passWord, phone, idRole) > 0;
 	}
 
 	public List<User> CallGetAllUser() {
