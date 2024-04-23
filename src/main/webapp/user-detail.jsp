@@ -220,7 +220,7 @@
 				<br />
 				<!-- /.row -->
 				<!-- BEGIN DANH SÁCH CÔNG VIỆC -->
-				<h4>DANH SÁCH CÔNG VIỆC</h4>
+				<h4>DANH SÁCH CÔNG VIỆC CẦN THỰC HIỆN HOẶC QUẢN LÝ</h4>
 				<div class="row">
 
 					<c:forEach items="${listStatus}" var="status">

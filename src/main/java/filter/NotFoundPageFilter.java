@@ -21,7 +21,7 @@
 //            "/add-user", "/users", "/user-details", "/user-edit", "/role-table",
 //            "/role-add", "/role-edit", "/groupwork", "/groupwork-add", "/groupwork-details",
 //            "/groupwork-edit", "/task-add", "/task", "/task-edit", "/profile",
-//            "/profile-edit", "/login", "/logout","/","/404","/dashboard","/blank","/js/user-table.js"
+//            "/profile-edit", "/login", "/logout","/","/404","/dashboard","/blank","/","/task-detail"
 //    );
 //	@Override
 //	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

@@ -26,24 +26,24 @@ $(document).ready(function() {
 			method: "POST",
 			url: "http://localhost:8080/crmapp05/api/task-edit",
 			data: { id_task: id_task, id_project: id_project, tenCongViec: tenCongViec, id_user: id_user, start_date: start_date, end_date: end_date, id_status: id_status },
-			  success: function(response) {
-                // Xử lý khi gọi API thành công
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                // Xử lý khi gọi API gặp lỗi
-                console.log(xhr.responseText);
-            }
-        }).done(function(result){
-			if(result.data){
-					$(".add-information").empty();
+			success: function(response) {
+				// Xử lý khi gọi API thành công
+				console.log(response);
+			},
+			error: function(xhr, status, error) {
+				// Xử lý khi gọi API gặp lỗi
+				console.log(xhr.responseText);
+			}
+		}).done(function(result) {
+			if (result.data) {
+				$(".add-information").empty();
 				$(".add-information").append("<h3 style='color:green'>Cập nhật Task thành công</h3>");
-			}else{
+			} else {
 				$(".add-information").empty();
 				$(".add-information").append("<h3 style='color:red'>Cập nhật Task Thất bại</h3>");
 			}
 		})
-        
-        ;
+
+			;
 	});
 });
