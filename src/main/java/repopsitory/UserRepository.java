@@ -182,10 +182,13 @@ public class UserRepository {
 		return result;
 	}
 
-	public User getUserDoTask(int id_task) {
+	public User getLeaderOfTask(int id_task) {
 		User user = new User();
-		String query = "SELECT u.id, u.fullname \n" + "FROM task t\n" + "JOIN assigntask a ON a.id_task = t.id \n"
-				+ "JOIN users u ON u.id = a.id_user \n" + "WHERE t.id = '" + id_task + "';";
+		String query = "SELECT u.id ,u.fullname \n"
+				+ "FROM users u \n"
+				+ "JOIN project p ON p.id_user = u.id\n"
+				+ "JOIN task t ON t.id_project  = p.id \n"
+				+ "WHERE t.id = '"+id_task+"';";
 		Connection connection = MySQLConfig.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);

@@ -155,14 +155,14 @@
                                   <div class="form-group">
                                     <label class="col-md-12">Leader quản lý dự án</label>
                                     <div class="col-md-12">
-                                        <input type="text"  readonly value="${task.user.fullname}"
+                                        <input type="text"  readonly value="${leader.fullname}"
                                             class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Nhân Viên thực hiện</label>
                                     <div class="col-md-12">
-                                        <input type="text"  readonly value="${userDoTask.fullname}"
+                                        <input type="text"  readonly value="${task.user.fullname}"
                                             class="form-control form-control-line">
                                     </div>
                                 </div>

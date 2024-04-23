@@ -109,7 +109,8 @@ public class TaskController extends HttpServlet {
 			
 			int idTask = Integer.parseInt(req.getParameter("id_task"));
 			
-			req.setAttribute("userDoTask", taskService.callGetUserDoTask(idTask));
+			req.setAttribute("leader", taskService.callGetLeaderOfTask(idTask));
+			
 			req.setAttribute("task",taskService.callGetTaskById(idTask));
 			
 			req.getRequestDispatcher("task-detail.jsp").forward(req, resp);

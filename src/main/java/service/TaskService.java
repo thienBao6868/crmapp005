@@ -88,8 +88,8 @@ public class TaskService {
 		return taskRepository.deleteTaskById(id_task) > 0;
 	}
 	
-	public User callGetUserDoTask(int id_task) {
-		return userRepository.getUserDoTask(id_task);
+	public User callGetLeaderOfTask(int id_task) {
+		return userRepository.getLeaderOfTask(id_task);
 	}
 	
 	public List<User> callGetAllUserIsStaff () {
