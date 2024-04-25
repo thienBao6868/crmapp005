@@ -51,7 +51,7 @@ public class ProjectRepository {
 		case 3:
 			query = "SELECT p.id, p.name ,p.start_date ,p.end_date ,p.id_user , u.fullname\n" + "FROM project p \n"
 					+ "JOIN task t ON t.id_project = p.id \n" + "JOIN assigntask a ON a.id_task = t.id \n"
-					+ "JOIN users u ON u.id = a.id_user \n" + "WHERE a.id_user = '" + id_user + "'\n"
+					+ "JOIN users u ON u.id = p.id_user \n" + "WHERE a.id_user = '" + id_user + "'\n"
 					+ "GROUP BY p.id\n" + "ORDER BY p.id ASC ";
 			break;
 
